@@ -13,31 +13,6 @@
 
 ![vsc] ![git] ![ps] ![ai] ![fg]
 
-### Project build in 4 fases:
-
-- [x] Build the core styles
-  - [x] SCSS GRID
-  - [x] SCSS FLEX
-  - [x] Base Styles
-  - [x] Responsive
-  - [ ] Add Experiences Section
-  - [ ] Projects Section refactoring
-
-  
-- [ ] Build the core components with react
-  - [ ] Cards
-  - [ ] Projects
-  - [ ] Sections
-  - [ ] Header
-  - [ ] Footer
-- [ ] Add a service to automatically update site content
-  - [ ] Data Fetch
-  - [ ] Data Update
-  - [ ] Update Page Functionality
-- [ ] Rebuild and Bug correction
-  - [ ] Project Section Animations
-  - [ ] Project section Information
-
 ## Author
 
 Created by Leon Martin ([HolaSoyMalva](https://github.com/holasoymalva)).
@@ -69,12 +44,3 @@ Thank you for reading. <3
 [in-link]: https://www.linkedin.com/in/martin-manriquez-899877177/
 [ig-link]: https://www.instagram.com/malvabombom/
 [tt-link]: https://www.tiktok.com/@malvabombom
-
-Referencias V2:
-
-* https://www.figma.com/community/file/1182197835889504018/Portfolio-Design
-* https://www.figma.com/community/file/1266863403759514317/Geist---UI-Kit-for-Figma
-* https://www.figma.com/community/file/1218023713246072698
-* https://www.figma.com/community/file/1243923291480495764
-* https://www.figma.com/community/file/1228726827056833329
-* https://www.figma.com/community/file/1168838524032065880
