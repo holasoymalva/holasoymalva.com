@@ -374,11 +374,10 @@ body .grid {
 }
 
 video {
-  background: transparent;
-  -webkit-mask-image: -webkit-radial-gradient(white, black);
-  -webkit-backface-visibility: hidden;
-  -moz-backface-visibility: hidden;
-  mix-blend-mode: normal;
+  background-color: transparent;
+  backface-visibility: hidden;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 
 .video-container {
