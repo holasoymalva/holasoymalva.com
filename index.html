@@ -40,8 +40,9 @@
               playsinline
               webkit-playsinline
               x5-playsinline
-              style="height: 140px; margin-bottom: -12px; background: transparent;"
-              poster="./source/img/transparent.png"
+              preload="none"
+              style="height: 140px; margin-bottom: -12px; background-color: transparent; object-fit: contain;"
+              poster="./source/img/martin-logo.png"
             ></video>
           </div>
           <br />
@@ -306,22 +307,6 @@
               target="_blank"
             ></a>
           </div>
-          <div class="project medium_shake_it">
-            <div class="project__header">
-              <img src="./source/img/project_daacademy.png" alt="" />
-            </div>
-            <div class="project__body">
-              <p class="t__uva">Da'Academy</p>
-              <p class="project__description">
-                e-Learning platform to learn modern skills 🚀.
-              </p>
-            </div>
-            <a
-              href="./courses.html"
-              class="project__link"
-              target="_blank"
-            ></a>
-          </div>
         </div>
       </section>
       <section class="marvel__section">
@@ -406,5 +391,27 @@
     <footer class="t__rainbow">Made with 🌮 and Good Vibes 🍟</footer>
     <script src="source/scripts/translate.js"></script>
     <script src="source/scripts/mode.js"></script>
+    <script>
+      (function(){
+        var isWindows = /Windows NT/i.test(navigator.userAgent);
+        if (!isWindows) return;
+        var vc = document.querySelector('.video-container');
+        if (!vc) return;
+        var v = vc.querySelector('video');
+        if (!v) return;
+        try { v.pause(); } catch(e) {}
+        v.removeAttribute('src');
+        if (v.load) v.load();
+        v.style.display = 'none';
+        var img = document.createElement('img');
+        img.src = './source/img/martin-logo.png';
+        img.alt = 'logo';
+        img.style.height = '140px';
+        img.style.marginBottom = '-12px';
+        img.style.display = 'inline-block';
+        img.style.backgroundColor = 'transparent';
+        vc.appendChild(img);
+      })();
+    </script>
   </body>
 </html>
