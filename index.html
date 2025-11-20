@@ -463,6 +463,7 @@
         img.style.display = 'inline-block';
         img.style.backgroundColor = 'transparent';
         vc.appendChild(img);
+        vc.classList.add('appear');
       })();
     </script>
     <script>
@@ -470,8 +471,7 @@
         var vc = document.querySelector('.video-container');
         if (!vc) return;
         var v = vc.querySelector('video');
-        if (!v) return;
-        v.style.visibility = 'hidden';
+        if (v) { v.style.visibility = 'hidden'; }
         var colors = ['#ffbd12','#a259fe','#f24e1e','#14b8a6','#ef4444','#3b82f6','#22c55e'];
         var count = 36;
         var frag = document.createDocumentFragment();
@@ -494,6 +494,8 @@
           frag.appendChild(c);
         }
         vc.appendChild(frag);
+        vc.classList.add('appear');
+        if (v) { v.style.visibility = 'visible'; }
         setTimeout(function(){
           var nodes = vc.querySelectorAll('.confetti');
           nodes.forEach(function(n){ if (n && n.parentNode) n.parentNode.removeChild(n); });
