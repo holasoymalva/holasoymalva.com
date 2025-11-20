@@ -673,4 +673,28 @@ video {
   100% {
     transform: scale(1, 1) translateY(0);
   }
-}/*# sourceMappingURL=styles.css.map */
+}.reveal {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+  will-change: transform, opacity;
+  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
+              opacity 600ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms);
+}
+.reveal.in-view {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+.reveal-left { transform: translate3d(-24px, 0, 0); }
+.reveal-right { transform: translate3d(24px, 0, 0); }
+.reveal-zoom { transform: scale(0.96); }
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-left,
+  .reveal-right,
+  .reveal-zoom {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+/*# sourceMappingURL=styles.css.map */
