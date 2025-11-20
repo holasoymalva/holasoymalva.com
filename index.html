@@ -464,5 +464,43 @@
         vc.appendChild(img);
       })();
     </script>
+    <script>
+      (function(){
+        var vc = document.querySelector('.video-container');
+        if (!vc) return;
+        var v = vc.querySelector('video');
+        if (!v) return;
+        v.style.visibility = 'hidden';
+        var colors = ['#ffbd12','#a259fe','#f24e1e','#14b8a6','#ef4444','#3b82f6','#22c55e'];
+        var count = 36;
+        var frag = document.createDocumentFragment();
+        for (var i = 0; i < count; i++) {
+          var c = document.createElement('div');
+          c.className = 'confetti';
+          var angle = Math.random() * Math.PI * 2;
+          var dist = 80 + Math.random() * 80;
+          var tx = Math.cos(angle) * dist;
+          var ty = Math.sin(angle) * dist;
+          var rot = Math.floor(Math.random() * 360) + 'deg';
+          var wind = (Math.random() * 80 - 40) + 'px';
+          c.style.setProperty('--tx', tx + 'px');
+          c.style.setProperty('--ty', ty + 'px');
+          c.style.setProperty('--rot', rot);
+          c.style.setProperty('--wind', wind);
+          c.style.backgroundColor = colors[i % colors.length];
+          if (Math.random() < 0.5) { c.style.width = '6px'; c.style.height = '12px'; } else { c.style.width = '8px'; c.style.height = '8px'; c.style.borderRadius = '50%'; }
+          c.style.animation = 'burst 420ms ease-out forwards, fall 1200ms 440ms ease-in forwards';
+          frag.appendChild(c);
+        }
+        vc.appendChild(frag);
+        setTimeout(function(){
+          var nodes = vc.querySelectorAll('.confetti');
+          nodes.forEach(function(n){ if (n && n.parentNode) n.parentNode.removeChild(n); });
+          v.style.visibility = '';
+          vc.classList.add('appear');
+          setTimeout(function(){ vc.classList.remove('appear'); }, 400);
+        }, 1800);
+      })();
+    </script>
   </body>
 </html>
