@@ -22,6 +22,7 @@ body {
   background-image: radial-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0));
   background-size: 18px 18px, 100% 100%;
   background-position: 0 0, 0 0;
+  position: relative;
 }
 body.dark-mode {
   background-color: #282828;
@@ -143,7 +144,7 @@ body a {
 body header {
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 100;
   padding: 10px 30px 12px 30px;
   background: linear-gradient(180deg, #ffffff 53.17%, rgba(255, 255, 255, 0) 100%);
   height: 100px;
@@ -169,6 +170,8 @@ body footer {
   text-align: center;
   height: 45px;
   width: 100%;
+  position: relative;
+  z-index: 10;
 }
 body blockquote,
 body dd,
@@ -226,6 +229,8 @@ body .grid {
   padding-left: 30px;
   padding-right: 30px;
   margin-bottom: 80px;
+  position: relative;
+  z-index: 10;
 }
 @media (min-width: 1200px) {
   .marvel {
@@ -673,28 +678,57 @@ video {
   100% {
     transform: scale(1, 1) translateY(0);
   }
-}.reveal {
+}
+#crayon-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.7;
+  mix-blend-mode: multiply;
+  transition: opacity 0.3s ease;
+}
+
+body.dark-mode #crayon-canvas {
+  opacity: 0.5;
+  mix-blend-mode: lighten;
+}
+
+.reveal {
   opacity: 0;
-  transform: translate3d(0, 24px, 0);
-  will-change: transform, opacity;
-  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
-              opacity 600ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms);
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transition-delay: var(--reveal-delay, 0ms);
 }
 .reveal.in-view {
   opacity: 1;
-  transform: translate3d(0, 0, 0);
+  transform: translateY(0);
 }
-.reveal-left { transform: translate3d(-24px, 0, 0); }
-.reveal-right { transform: translate3d(24px, 0, 0); }
-.reveal-zoom { transform: scale(0.96); }
+.reveal.reveal-zoom {
+  transform: scale(0.9) translateY(20px);
+}
+.reveal.reveal-zoom.in-view {
+  transform: scale(1) translateY(0);
+}
+.reveal.reveal-left {
+  transform: translateX(-40px);
+}
+.reveal.reveal-left.in-view {
+  transform: translateX(0);
+}
+.reveal.reveal-right {
+  transform: translateX(40px);
+}
+.reveal.reveal-right.in-view {
+  transform: translateX(0);
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .reveal,
-  .reveal-left,
-  .reveal-right,
-  .reveal-zoom {
-    transition: none !important;
-    transform: none !important;
-    opacity: 1 !important;
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
-}
-/*# sourceMappingURL=styles.css.map */
+}/*# sourceMappingURL=styles.css.map */

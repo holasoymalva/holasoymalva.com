@@ -24,6 +24,7 @@ body {
   background-image: radial-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0));
   background-size: 18px 18px, 100% 100%;
   background-position: 0 0, 0 0;
+  position: relative;
 
   &.dark-mode {
     background-color: $color__dark;
@@ -148,7 +149,7 @@ body {
   header {
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: 100;
     padding: 10px 30px 12px 30px;    
     background: linear-gradient(
       180deg,
@@ -178,6 +179,8 @@ body {
     text-align: center;
     height: 45px;
     width: 100%;
+    position: relative;
+    z-index: 10;
   }
   blockquote,
   dd,
@@ -223,6 +226,8 @@ body {
   padding-left: 30px;
   padding-right: 30px;
   margin-bottom: 80px;
+  position: relative;
+  z-index: 10;
   @include desktop {
     padding-left: 250px;
     padding-right: 250px;
@@ -642,5 +647,68 @@ video {
   }
   100% {
     transform: scale(1, 1) translateY(0);
+  }
+}
+
+// Estilos para el canvas de crayola
+#crayon-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.7;
+  mix-blend-mode: multiply;
+  transition: opacity 0.3s ease;
+}
+
+body.dark-mode #crayon-canvas {
+  opacity: 0.5;
+  mix-blend-mode: lighten;
+}
+
+// Animaciones de reveal para scroll
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transition-delay: var(--reveal-delay, 0ms);
+
+  &.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  &.reveal-zoom {
+    transform: scale(0.9) translateY(20px);
+    
+    &.in-view {
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  &.reveal-left {
+    transform: translateX(-40px);
+    
+    &.in-view {
+      transform: translateX(0);
+    }
+  }
+
+  &.reveal-right {
+    transform: translateX(40px);
+    
+    &.in-view {
+      transform: translateX(0);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
