@@ -19,10 +19,16 @@ body {
   padding: 0;
   color: #282828;
   font-family: "Montserrat", sans-serif;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0));
+  background-size: 18px 18px, 100% 100%;
+  background-position: 0 0, 0 0;
 }
 body.dark-mode {
   background-color: #282828;
   color: #f6f6f6;
+  background-image: radial-gradient(rgba(246, 246, 246, 0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0));
+  background-size: 18px 18px, 100% 100%;
+  background-position: 0 0, 0 0;
 }
 body.dark-mode a {
   color: #f6f6f6;
@@ -368,11 +374,10 @@ body .grid {
 }
 
 video {
-  background: transparent;
-  -webkit-mask-image: -webkit-radial-gradient(white, black);
-  -webkit-backface-visibility: hidden;
-  -moz-backface-visibility: hidden;
-  mix-blend-mode: normal;
+  background-color: transparent;
+  backface-visibility: hidden;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 
 .video-container {

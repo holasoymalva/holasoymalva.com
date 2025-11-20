@@ -40,14 +40,58 @@
               playsinline
               webkit-playsinline
               x5-playsinline
-              style="height: 140px; margin-bottom: -12px; background: transparent;"
-              poster="./source/img/transparent.png"
+              preload="none"
+              style="height: 140px; margin-bottom: -12px; background-color: transparent; object-fit: contain;"
+              poster="./source/img/martin-logo.png"
             ></video>
           </div>
           <br />
           <span id="intro">Hi, I’m <span class="t__marker">Martin</span><span class="wave">👋</span></span>
         </h1>
         <p class="t__rainbow" id="introDescription">Developer, Maker & Designer</p>
+                <div class="stage">
+          <a
+            href="https://github.com/holasoymalva"
+            target="_blank"
+            class="fa fa-brands fa-github box jump"
+          ></a>
+          <a
+            href="https://www.instagram.com/holasoymalva/"
+            target="_blank"
+            class="fa fa-brands fa-instagram box jump"
+          ></a>
+          <a
+            href="https://www.tiktok.com/@holasoymalva"
+            target="_blank"
+            class="fa fa-brands fa-tiktok box jump"
+          ></a>
+          <a
+            href="https://www.youtube.com/@holasoymalva/"
+            target="_blank"
+            class="fa fa-brands fa-youtube box jump"
+          ></a>
+          <a
+            href="https://www.twitch.tv/holasoymalva"
+            target="_blank"
+            class="fa fa-brands fa-twitch box jump"
+          ></a>
+          <a
+            href="https://www.linkedin.com/in/martin-manriquez/"
+            target="_blank"
+            class="fa fa-brands fa-linkedin box jump"
+          ></a>
+          <a
+            href="https://twitter.com/holasoymalva"
+            target="_blank"
+            class="fa fa-brands fa-twitter box jump"
+          ></a>
+          <a
+            href="https://medium.com/@holasoymalva"
+            target="_blank"
+            class="fa fa-brands fa-medium box jump"
+          ></a>
+          
+        </div>
       </section>
       <section class="marvel__section">
         <h2 id="aboutTitle"><span class="t__marker">About</span> Me</h2>
@@ -76,24 +120,28 @@
         </p>
         <div class="marvel__flex">
           <img
-            src="./source/img/tool_01.png"
+            src="/source/img/tool_01.png"
             alt="JAVASCRIPT ICON"
             class="marvel__card slow_shake_it"
+            loading="lazy"
           />
           <img
-            src="./source/img/tool_02.png"
+            src="/source/img/tool_02.png"
             alt="FIGMA ICON"
             class="marvel__card slow_shake_it"
+            loading="lazy"
           />
           <img
-            src="./source/img/tool_03.png"
+            src="/source/img/tool_03.png"
             alt="REACT.JS ICON"
             class="marvel__card slow_shake_it"
+            loading="lazy"
           />
           <img
-            src="./source/img/tool_04.png"
+            src="/source/img/tool_04.png"
             alt="SPARK AR ICON"
             class="marvel__card slow_shake_it"
+            loading="lazy"
           />
         </div>
       </section>
@@ -306,22 +354,6 @@
               target="_blank"
             ></a>
           </div>
-          <div class="project medium_shake_it">
-            <div class="project__header">
-              <img src="./source/img/project_daacademy.png" alt="" />
-            </div>
-            <div class="project__body">
-              <p class="t__uva">Da'Academy</p>
-              <p class="project__description">
-                e-Learning platform to learn modern skills 🚀.
-              </p>
-            </div>
-            <a
-              href="./courses.html"
-              class="project__link"
-              target="_blank"
-            ></a>
-          </div>
         </div>
       </section>
       <section class="marvel__section">
@@ -406,5 +438,27 @@
     <footer class="t__rainbow">Made with 🌮 and Good Vibes 🍟</footer>
     <script src="source/scripts/translate.js"></script>
     <script src="source/scripts/mode.js"></script>
+    <script>
+      (function(){
+        var isWindows = /Windows NT/i.test(navigator.userAgent);
+        if (!isWindows) return;
+        var vc = document.querySelector('.video-container');
+        if (!vc) return;
+        var v = vc.querySelector('video');
+        if (!v) return;
+        try { v.pause(); } catch(e) {}
+        v.removeAttribute('src');
+        if (v.load) v.load();
+        v.style.display = 'none';
+        var img = document.createElement('img');
+        img.src = './source/img/martin-logo.png';
+        img.alt = 'logo';
+        img.style.height = '140px';
+        img.style.marginBottom = '-12px';
+        img.style.display = 'inline-block';
+        img.style.backgroundColor = 'transparent';
+        vc.appendChild(img);
+      })();
+    </script>
   </body>
 </html>

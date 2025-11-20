@@ -21,10 +21,16 @@ body {
   padding: 0;
   color: $color__dark;
   font-family: "Montserrat", sans-serif;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0));
+  background-size: 18px 18px, 100% 100%;
+  background-position: 0 0, 0 0;
 
   &.dark-mode {
     background-color: $color__dark;
     color: $color__blanco;
+    background-image: radial-gradient(rgba(246, 246, 246, 0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0));
+    background-size: 18px 18px, 100% 100%;
+    background-position: 0 0, 0 0;
 
     a {
       color: $color__blanco;
@@ -358,11 +364,10 @@ body {
 }
 
 video {
-  background: transparent;
-  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  background-color: transparent;
   -webkit-backface-visibility: hidden;
-  -moz-backface-visibility: hidden;
-  mix-blend-mode: normal;
+  backface-visibility: hidden;
+  object-fit: contain;
 }
 
 .video-container {
