@@ -1,17 +1,38 @@
-# malvabombom.xyz
+# holasoymalva - Personal Website
 
 [**Live site here**][as] [![ny]][ny-link]
 
-## Builded with
+Portfolio personal de Martin Manriquez (@holasoymalva) - Software Engineer
+
+## 🚀 Features
+
+- Responsive and modern design
+- Dark/Light mode with persistence
+- Multi-language support (English/Spanish)
+- Optimized CSS animations
+- Performance optimized
+
+## 🛠️ Built with
 
 - ![html5]
 - ![css3]
     - [SASS][sass]
 - ![js]
 
-### Another tools used
+### Tools used
 
 ![vsc] ![git] ![ps] ![ai] ![fg]
+
+## ⚡ Recent Optimizations
+
+- ✅ Lazy loading for Font Awesome
+- ✅ Preconnect to external CDNs
+- ✅ LocalStorage for user preferences
+- ✅ Optimized CSS without duplicates
+- ✅ Smooth transitions in animations
+- ✅ Scripts with defer for better loading
+- ✅ GZIP compression enabled
+- ✅ Browser cache configured
 
 ## Author
 
