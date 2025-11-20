@@ -388,6 +388,49 @@ video {
   font-size: 0;
 }
 
+.confetti {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 14px;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.8);
+  will-change: transform, opacity;
+}
+
+@keyframes burst {
+  0% {
+    opacity: 0.9;
+    transform: translate(-50%, -50%) scale(0.8) rotate(0deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) rotate(var(--rot));
+  }
+}
+@keyframes fall {
+  0% {
+    opacity: 1;
+    transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) rotate(var(--rot));
+  }
+  100% {
+    opacity: 0.85;
+    transform: translate(calc(-50% + var(--tx) + var(--wind)), calc(-50% + var(--ty) + 180px)) rotate(calc(var(--rot) + 180deg));
+  }
+}
+.video-container.appear {
+  animation: fadeIn 320ms ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 .languages {
   background-color: transparent;
   cursor: pointer;
@@ -630,4 +673,28 @@ video {
   100% {
     transform: scale(1, 1) translateY(0);
   }
-}/*# sourceMappingURL=styles.css.map */
+}.reveal {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+  will-change: transform, opacity;
+  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
+              opacity 600ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms);
+}
+.reveal.in-view {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+.reveal-left { transform: translate3d(-24px, 0, 0); }
+.reveal-right { transform: translate3d(24px, 0, 0); }
+.reveal-zoom { transform: scale(0.96); }
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-left,
+  .reveal-right,
+  .reveal-zoom {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+/*# sourceMappingURL=styles.css.map */
