@@ -16,14 +16,28 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const observer = new IntersectionObserver((entries, obs) => {
+  const supportsIO = 'IntersectionObserver' in window;
+  const observer = supportsIO ? new IntersectionObserver((entries, obs) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('in-view');
         obs.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' });
+  }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' }) : null;
+
+  function inViewport(el) {
+    const r = el.getBoundingClientRect();
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    const vw = window.innerWidth || document.documentElement.clientWidth;
+    return r.top <= vh * 0.9 && r.bottom >= vh * 0.1 && r.right >= 0 && r.left <= vw;
+  }
+  function fallbackObserve(el) {
+    if (inViewport(el)) { el.classList.add('in-view'); return; }
+    const handler = () => { if (inViewport(el)) { el.classList.add('in-view'); window.removeEventListener('scroll', handler); window.removeEventListener('resize', handler); } };
+    window.addEventListener('scroll', handler, { passive: true });
+    window.addEventListener('resize', handler);
+  }
 
   elements.forEach(({ el, type }, idx) => {
     el.classList.add('reveal');
@@ -31,8 +45,10 @@ document.addEventListener('DOMContentLoaded', () => {
     el.style.setProperty('--reveal-delay', `${Math.min(idx * 60, 360)}ms`);
     if (prefersReduced) {
       el.classList.add('in-view');
-    } else {
+    } else if (supportsIO) {
       observer.observe(el);
+    } else {
+      fallbackObserve(el);
     }
   });
 
@@ -40,6 +56,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const t = el.dataset.reveal;
     el.classList.add('reveal');
     if (t) el.classList.add(`reveal-${t}`);
-    prefersReduced ? el.classList.add('in-view') : observer.observe(el);
+    if (prefersReduced) {
+      el.classList.add('in-view');
+    } else if (supportsIO) {
+      observer.observe(el);
+    } else {
+      fallbackObserve(el);
+    }
   });
 });
