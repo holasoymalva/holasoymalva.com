@@ -1,5 +1,3 @@
-document.getElementById('languageButton').addEventListener('click', toggleLanguage);
-
 const translations = {
   en: {
     intro: "Hi, I’m <span class='t__marker'>Martin</span><span class='wave'>👋</span>",
@@ -81,7 +79,8 @@ const translations = {
     footer: "Hecho con 🌮 y Buenas Vibras 🍟"
   }
 };
-let currentLanguage = 'en';
+let currentLanguage = localStorage.getItem('language') || navigator.language.split('-')[0];
+if (!translations[currentLanguage]) currentLanguage = 'en';
 
 function updateTranslations() {
   const elements = {
@@ -143,14 +142,13 @@ function updateTranslations() {
 function toggleLanguage() {
   currentLanguage = currentLanguage === 'en' ? 'es' : 'en';
   document.documentElement.lang = currentLanguage;
+  localStorage.setItem('language', currentLanguage);
   updateTranslations();
 }
 
-// Initialize translations
+// Initialize translations and event listener
 document.addEventListener('DOMContentLoaded', () => {
-  // Set initial language based on browser preference
-  const browserLang = navigator.language.split('-')[0];
-  currentLanguage = translations[browserLang] ? browserLang : 'en';
   document.documentElement.lang = currentLanguage;
   updateTranslations();
+  document.getElementById('languageButton').addEventListener('click', toggleLanguage);
 });
