@@ -26,6 +26,10 @@ const translations = {
     projectsIntro: "I'm Working full-time at <span class='t__uva t__rainbow'>BlackLine</span> while I study a <a href='https://www.sps.nyu.edu/homepage/academics/divisions-and-departments/division-of-applied-undergraduate-studies/credit-for-nyux-microbachelors-programs.html' target='_blank' class='t__uva t__rainbow'>MicroBachelors® in Computer Science</a>, But I'm open to experimenting and working on projects that are of interest to me, some of which you can see here <span class='wave'>👇</span>",
 
     // Project descriptions
+    manyLLMsTitle: "Many LLMs",
+    manyLLMsDesc: "Run many local models. One simple workspace. Local-first privacy. Unified chat. OpenAI-compatible API. Zero-cloud by default",
+    deepseekTitle: "Deepseek-cli",
+    deepseekDesc: "A command-line AI coding assistant that leverages the powerful DeeSeek Coder models to accelerate your development workflpows and enhance your coding experience. 🚀.",
     artSeriesTitle: "Spark AR - Art Series",
     artSeriesDesc: "A practical guide with the use of resources of public domine to create interactive experiences for museums, artists, schools or everyone who love instagram filters. 🚀.",
     saymeTitle: "Sayme",
@@ -65,6 +69,10 @@ const translations = {
     projectsIntro: "Estoy trabajando tiempo completo en <span class='t__uva t__rainbow'>BlackLine</span> mientras estudio una <a href='https://www.sps.nyu.edu/homepage/academics/divisions-and-departments/division-of-applied-undergraduate-studies/credit-for-nyux-microbachelors-programs.html' target='_blank' class='t__uva t__rainbow'>Micro-Licenciatura® en Ciencias de la Computación</a>, pero estoy abierto a experimentar y trabajar en proyectos que sean de mi interés, algunos de los cuales puedes ver aquí <span class='wave'>👇</span>",
 
     // Project descriptions
+    manyLLMsTitle: "Many LLMs",
+    manyLLMsDesc: "Ejecuta muchos modelos locales. Un espacio de trabajo simple. Privacidad local primero. Chat unificado. API compatible con OpenAI. Cero nube por defecto",
+    deepseekTitle: "Deepseek-cli",
+    deepseekDesc: "Un asistente de codificación AI de línea de comandos que aprovecha los potentes modelos DeeSeek Coder para acelerar tus flujos de trabajo de desarrollo y mejorar tu experiencia de codificación. 🚀.",
     artSeriesTitle: "Spark AR - Serie de Arte",
     artSeriesDesc: "Una guía práctica con el uso de recursos de dominio público para crear experiencias interactivas para museos, artistas, escuelas o todos los que aman los filtros de Instagram. 🚀.",
     saymeTitle: "Sayme",
@@ -102,10 +110,15 @@ function updateTranslations() {
     
     // Projects
     'projectsIntro': { type: 'innerHTML' },
-    'artSeriesTitle': { type: 'innerHTML', selector: '.project:nth-child(1) .t__uva' },
-    'artSeriesDesc': { type: 'innerHTML', selector: '.project:nth-child(1) .project__description' },
-    'saymeTitle': { type: 'innerHTML', selector: '.project:nth-child(2) .t__uva' },
-    'saymeDesc': { type: 'innerHTML', selector: '.project:nth-child(2) .project__description' },
+    'manyLLMsTitle': { type: 'innerHTML', selector: '.project:nth-child(1) .t__uva' },
+    'manyLLMsDesc': { type: 'innerHTML', selector: '.project:nth-child(1) .project__description' },
+    'deepseekTitle': { type: 'innerHTML', selector: '.project:nth-child(2) .t__uva' },
+    'deepseekDesc': { type: 'innerHTML', selector: '.project:nth-child(2) .project__description' },
+
+    'artSeriesTitle': { type: 'innerHTML', selector: '.project:nth-child(3) .t__uva' },
+    'artSeriesDesc': { type: 'innerHTML', selector: '.project:nth-child(3) .project__description' },
+    'saymeTitle': { type: 'innerHTML', selector: '.project:nth-child(4) .t__uva' },
+    'saymeDesc': { type: 'innerHTML', selector: '.project:nth-child(4) .project__description' },
     
     // Resources
     'englishResources': { type: 'textContent', selector: 'li:nth-child(1) a' },
