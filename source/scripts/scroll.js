@@ -6,8 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { selector: '.marvel__card', type: null },
     { selector: '.project', type: 'reveal-zoom' },
     { selector: '.marvel__column li', type: 'reveal-left' },
-    { selector: '.stage', type: null },
-    { selector: 'footer', type: null }
+    { selector: '.stage', type: null }
   ];
 
   const elements = [];
