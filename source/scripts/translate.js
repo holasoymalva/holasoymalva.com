@@ -35,6 +35,15 @@ const translations = {
     saymeTitle: "Sayme",
     saymeDesc: "A chatbot assistant for travers, with the use of translations and image processing. 🚀.",
 
+    expGrupoSalinas: "Worked with Python and JavaScript to develop a financial assistant and its services, adapting quickly to company technologies, policies, and regulations. Successfully launched assistant and reactivated company services through internal platform, leading to professional and personal growth.",
+    expMetaDevCircles: "Worked on promoting and diffusing company's tech stack through events to support and strengthen local tech ecosystem. Created documentation, maintained repositories, and organized workshops and tutorials, leading to the creation of a highly active developer community in Mexico City. Participated in events such as DevFest, and NodeConf. Developed communication and collaboration skills and contributed to the local tech community.",
+    expCoderhouse: "Taught programming languages like Python and Java to students and adapted teaching to individual needs. Developed communication and explanation skills and learned to be patient. Enjoyed working with students of different skill levels and seeing their progress. Enriching experience that allowed for effective transmission of knowledge.",
+    expGlobant: "Worked on different projects and platforms, performing tasks including maintenance and creation of new platforms using latest versions of Angular, Polymer components, and Node.js services. Developed platform and API using Node.js and Vue.js architecture, integrating updates and refactoring website appearance, successfully launching an initial version. Grew as a person and learned emerging technologies while working with team.",
+    expGuros: "Design and prototype different sets of digital solutions. Maintain the highest quality of our code and move at the speed of light. Improve the features of our projects.",
+    expHeyGrows: "Deliver impact and results by defining success metrics, analyzing data for insights, prioritizing what to build, and coordinating with partner teams to align efforts to business strategies",
+    expBlackLine: "Delivering high-quality releases to our customers by designing, developing, troubleshooting, maintaining, optimizing and scaling BlackLine’s cloud- based backend services and driving innovation into our product suite.",
+
+    nowLabel: "NOW",
     // Resources section
     englishResources: "Resources for learning English",
     webDevResources: "Resources for learning Web Development",
@@ -78,6 +87,15 @@ const translations = {
     saymeTitle: "Sayme",
     saymeDesc: "Un asistente chatbot para viajeros, con el uso de traducciones y procesamiento de imágenes. 🚀.",
 
+    expGrupoSalinas: "Trabajé con Python y JavaScript para desarrollar un asistente financiero y sus servicios, adaptándome rápidamente a las tecnologías, políticas y regulaciones de la empresa. Lancé con éxito el asistente y reactivé servicios de la empresa a través de la plataforma interna, lo que impulsó mi crecimiento profesional y personal.",
+    expMetaDevCircles: "Promoví y difundí el stack tecnológico de la empresa mediante eventos para apoyar y fortalecer el ecosistema local. Creé documentación, mantuve repositorios y organicé talleres y tutoriales, lo que llevó a la creación de una comunidad de desarrolladores muy activa en Ciudad de México. Participé en eventos como DevFest y NodeConf. Desarrollé habilidades de comunicación y colaboración y contribuí a la comunidad tecnológica local.",
+    expCoderhouse: "Enseñé lenguajes de programación como Python y Java a estudiantes y adapté la enseñanza a necesidades individuales. Desarrollé habilidades de comunicación y explicación y aprendí a ser paciente. Disfruté trabajar con estudiantes de distintos niveles y ver su progreso. Experiencia enriquecedora que permitió transmitir el conocimiento de manera efectiva.",
+    expGlobant: "Trabajé en distintos proyectos y plataformas, realizando tareas que incluyeron mantenimiento y creación de nuevas plataformas usando las últimas versiones de Angular, componentes Polymer y servicios de Node.js. Desarrollé una plataforma y API con arquitectura de Node.js y Vue.js, integrando actualizaciones y refactorizando la apariencia del sitio, lanzando con éxito una versión inicial. Crecí como persona y aprendí tecnologías emergentes trabajando con el equipo.",
+    expGuros: "Diseñar y prototipar distintos conjuntos de soluciones digitales. Mantener la más alta calidad de nuestro código y movernos a la velocidad de la luz. Mejorar las funcionalidades de nuestros proyectos.",
+    expHeyGrows: "Generar impacto y resultados definiendo métricas de éxito, analizando datos para obtener insights, priorizando qué construir y coordinando con equipos socios para alinear esfuerzos con las estrategias del negocio.",
+    expBlackLine: "Entregar lanzamientos de alta calidad a nuestros clientes diseñando, desarrollando, resolviendo problemas, manteniendo, optimizando y escalando los servicios backend en la nube de BlackLine, impulsando la innovación en nuestra suite de productos.",
+
+    nowLabel: "AHORA",
     // Resources section
     englishResources: "Recursos para aprender inglés",
     webDevResources: "Recursos para aprender desarrollo web",
@@ -108,23 +126,13 @@ function updateTranslations() {
     'contactTitle': { type: 'innerHTML' },
     'contentTitle': { type: 'innerHTML' },
     
-    // Projects
     'projectsIntro': { type: 'innerHTML' },
-    'manyLLMsTitle': { type: 'innerHTML', selector: '.project:nth-child(1) .t__uva' },
-    'manyLLMsDesc': { type: 'innerHTML', selector: '.project:nth-child(1) .project__description' },
-    'deepseekTitle': { type: 'innerHTML', selector: '.project:nth-child(2) .t__uva' },
-    'deepseekDesc': { type: 'innerHTML', selector: '.project:nth-child(2) .project__description' },
-
-    'artSeriesTitle': { type: 'innerHTML', selector: '.project:nth-child(3) .t__uva' },
-    'artSeriesDesc': { type: 'innerHTML', selector: '.project:nth-child(3) .project__description' },
-    'saymeTitle': { type: 'innerHTML', selector: '.project:nth-child(4) .t__uva' },
-    'saymeDesc': { type: 'innerHTML', selector: '.project:nth-child(4) .project__description' },
     
     // Resources
     'englishResources': { type: 'textContent', selector: 'li:nth-child(1) a' },
     'webDevResources': { type: 'textContent', selector: 'li:nth-child(2) a' },
     'cvFormat': { type: 'textContent', selector: 'li:nth-child(3) a' },
-    
+
     // Footer
     'footer': { type: 'innerHTML', selector: 'footer' }
   };
@@ -138,6 +146,44 @@ function updateTranslations() {
     if (element && translations[currentLanguage][key]) {
       element[config.type] = translations[currentLanguage][key];
     }
+  }
+
+  const projectCards = Array.from(document.querySelectorAll('.project'));
+  const projectKeys = [
+    { title: 'manyLLMsTitle', desc: 'manyLLMsDesc' },
+    { title: 'deepseekTitle', desc: 'deepseekDesc' },
+    { title: 'artSeriesTitle', desc: 'artSeriesDesc' },
+    { title: 'saymeTitle', desc: 'saymeDesc' }
+  ];
+  projectCards.forEach((card, i) => {
+    const k = projectKeys[i];
+    if (!k) return;
+    const t = card.querySelector('.t__uva');
+    const d = card.querySelector('.project__description');
+    if (t && translations[currentLanguage][k.title]) t.innerHTML = translations[currentLanguage][k.title];
+    if (d && translations[currentLanguage][k.desc]) d.innerHTML = translations[currentLanguage][k.desc];
+  });
+
+  const expDescs = Array.from(document.querySelectorAll('.marvel__column__description'));
+  const expKeys = [
+    'expGrupoSalinas',
+    'expMetaDevCircles',
+    'expCoderhouse',
+    'expGlobant',
+    'expGuros',
+    'expHeyGrows',
+    'expBlackLine'
+  ];
+  expDescs.forEach((el, i) => {
+    const key = expKeys[i];
+    if (key && translations[currentLanguage][key]) {
+      el.textContent = translations[currentLanguage][key];
+    }
+  });
+
+  const nowEl = document.querySelector('.marvel__column__now');
+  if (nowEl && translations[currentLanguage].nowLabel) {
+    nowEl.textContent = translations[currentLanguage].nowLabel;
   }
 
   // Update job titles
