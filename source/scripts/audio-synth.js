@@ -1,6 +1,6 @@
 /**
  * Enriched 8-Bit Chiptune Web Audio API Synthesizer
- * Generates Train Whistles, Coin Pickup, Level-Up Chimes, and Retro UI Sound FX
+ * Generates Train Whistles, Coin Pickups, 8-Bit Explosions, Level-Up Chimes, and Retro UI Sound FX
  */
 
 (function () {
@@ -106,6 +106,43 @@
     } catch (e) {}
   }
 
+  // 8-Bit Arcade Explosion Sound Effect (BOOM!)
+  function playExplosionSound() {
+    if (isMuted) return;
+    const ctx = getAudioContext();
+    if (!ctx) return;
+
+    try {
+      // Noise buffer for blast
+      const bufferSize = ctx.sampleRate * 0.4;
+      const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        data[i] = Math.random() * 2 - 1;
+      }
+
+      const noise = ctx.createBufferSource();
+      noise.buffer = buffer;
+
+      // Filter for low boom rumble
+      const filter = ctx.createBiquadFilter();
+      filter.type = "lowpass";
+      filter.frequency.setValueAtTime(800, ctx.currentTime);
+      filter.frequency.exponentialRampToValueAtTime(40, ctx.currentTime + 0.38);
+
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.25, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.38);
+
+      noise.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+
+      noise.start();
+      noise.stop(ctx.currentTime + 0.38);
+    } catch (e) {}
+  }
+
   // Level-Up Chime (Terminal open)
   function playLevelUp() {
     if (isMuted) return;
@@ -175,5 +212,6 @@
   window.playAudioClick = playCoinSound;
   window.playCoinSound = playCoinSound;
   window.playTrainWhistle = playTrainWhistle;
+  window.playExplosionSound = playExplosionSound;
   window.playLevelUp = playLevelUp;
 })();

@@ -1,22 +1,27 @@
 /**
- * 3-Track Bi-Directional Railway Yard Engine (Responsive Mobile Support)
- * Renders 3 parallel tracks with bi-directional trains (L->R and R->L) auto-scaled for mobile screens
+ * 3-Track Railway Yard Engine with Click Derailment, Pixel Fireball Explosions & Replacement Respawns
  */
 
 (function () {
   let canvas, ctx;
   let width, height;
   let particles = [];
+  let explosionParticles = [];
   let scale = 1.0;
 
   // 3 Railway Tracks & Train Convoy Assignment
   const trainConvoys = [
     // Track 1 (Top, L -> R)
     {
+      id: 1,
       trackYRatio: 0.22,
       dir: 1, // Moving Right
       speed: 1.1,
       x: -200,
+      state: "RUNNING", // RUNNING, DERAILING, EXPLODING, RESPAWNING
+      derailTimer: 0,
+      derailAngle: 0,
+      yOffset: 0,
       tools: [
         { name: "Python", color: "#e63946" },
         { name: "JavaScript", color: "#ffb703", textColor: "#000" },
@@ -25,10 +30,15 @@
     },
     // Track 2 (Center, R -> L)
     {
+      id: 2,
       trackYRatio: 0.52,
       dir: -1, // Moving Left
       speed: 1.1,
       x: 1200,
+      state: "RUNNING",
+      derailTimer: 0,
+      derailAngle: 0,
+      yOffset: 0,
       tools: [
         { name: "React.js", color: "#7209b7" },
         { name: "Vue.js", color: "#38b000" },
@@ -37,10 +47,15 @@
     },
     // Track 3 (Bottom, L -> R)
     {
+      id: 3,
       trackYRatio: 0.82,
       dir: 1, // Moving Right
       speed: 1.1,
       x: -400,
+      state: "RUNNING",
+      derailTimer: 0,
+      derailAngle: 0,
+      yOffset: 0,
       tools: [
         { name: "Erlang", color: "#a90533" },
         { name: "DeepSeek AI", color: "#38b000" },
@@ -75,6 +90,40 @@
     }
   }
 
+  class FireballDebris {
+    constructor(x, y) {
+      this.x = x;
+      this.y = y;
+      this.vx = (Math.random() - 0.5) * 10;
+      this.vy = -Math.random() * 8 - 2;
+      this.size = Math.random() * 12 + 6;
+      this.color = ["#e63946", "#ffb703", "#f3722c", "#1c1917", "#57534e"][
+        Math.floor(Math.random() * 5)
+      ];
+      this.opacity = 1;
+      this.rot = Math.random() * Math.PI * 2;
+      this.vRot = (Math.random() - 0.5) * 0.2;
+    }
+
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+      this.vy += 0.4; // Gravity
+      this.rot += this.vRot;
+      this.opacity -= 0.025;
+    }
+
+    draw(ctx) {
+      ctx.save();
+      ctx.translate(this.x, this.y);
+      ctx.rotate(this.rot);
+      ctx.fillStyle = this.color;
+      ctx.globalAlpha = Math.max(0, this.opacity);
+      ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
+      ctx.restore();
+    }
+  }
+
   function init() {
     canvas = document.getElementById("pixel-train-canvas");
     if (!canvas) return;
@@ -88,8 +137,8 @@
       const rect = canvas.getBoundingClientRect();
       const clickX = e.clientX - rect.left;
       const clickY = e.clientY - rect.top;
-      spawnSteamBurst(clickX, clickY);
-      if (window.playTrainWhistle) window.playTrainWhistle();
+
+      checkTrainClick(clickX, clickY);
     });
 
     requestAnimationFrame(loop);
@@ -105,10 +154,66 @@
     scale = width < 600 ? 0.78 : 1.0;
   }
 
-  function spawnSteamBurst(targetX, targetY) {
-    for (let i = 0; i < 16; i++) {
-      particles.push(new SteamParticle(targetX, targetY - 20, 1));
+  function triggerExplosion(train, centerX, centerY) {
+    train.state = "EXPLODING";
+    if (window.playExplosionSound) window.playExplosionSound();
+
+    for (let i = 0; i < 45; i++) {
+      explosionParticles.push(new FireballDebris(centerX, centerY));
     }
+
+    // Schedule respawn after 1.2s
+    setTimeout(() => {
+      respawnTrain(train);
+    }, 1200);
+  }
+
+  function respawnTrain(train) {
+    const wagonSpacing = 112 * scale;
+    const trainLength = train.tools.length * wagonSpacing + 120 * scale;
+
+    train.state = "RUNNING";
+    train.derailTimer = 0;
+    train.derailAngle = 0;
+    train.yOffset = 0;
+
+    if (train.dir === 1) {
+      train.x = -trainLength - 150;
+    } else {
+      train.x = width + 150;
+    }
+  }
+
+  function checkTrainClick(clickX, clickY) {
+    const wagonSpacing = 112 * scale;
+
+    trainConvoys.forEach((train) => {
+      if (train.state !== "RUNNING") return;
+
+      const trackY = height * train.trackYRatio;
+      const trainLength = train.tools.length * wagonSpacing + 120 * scale;
+
+      let minX, maxX;
+      if (train.dir === 1) {
+        minX = train.x;
+        maxX = train.x + trainLength;
+      } else {
+        minX = train.x - trainLength;
+        maxX = train.x;
+      }
+
+      // Check if click is near this train on its track Y
+      if (
+        clickX >= minX &&
+        clickX <= maxX &&
+        clickY >= trackY - 80 * scale &&
+        clickY <= trackY + 30 * scale
+      ) {
+        // Derail train!
+        train.state = "DERAILING";
+        train.derailTimer = 0;
+      }
+    });
   }
 
   function drawTrack(trackY) {
@@ -127,19 +232,19 @@
     }
   }
 
-  // Draw Locomotive Engine (dir = 1 for Right, dir = -1 for Left)
+  // Draw Locomotive Engine
   function drawLocomotiveEngine(x, y, dir) {
     ctx.save();
     ctx.translate(x, y);
     ctx.scale(scale, scale);
 
     if (dir === 1) {
-      // Facing Right (Motion Left -> Right)
+      // Facing Right
       ctx.fillStyle = "#e63946"; ctx.fillRect(0, -65, 42, 65);
       ctx.lineWidth = 2.5; ctx.strokeStyle = "#2b2b2b"; ctx.strokeRect(0, -65, 42, 65);
 
-      ctx.fillStyle = "#2b2b2b"; ctx.fillRect(-4, -70, 50, 6); // Roof
-      ctx.fillStyle = "#ffb703"; ctx.fillRect(10, -52, 20, 20); ctx.strokeRect(10, -52, 20, 20); // Window
+      ctx.fillStyle = "#2b2b2b"; ctx.fillRect(-4, -70, 50, 6);
+      ctx.fillStyle = "#ffb703"; ctx.fillRect(10, -52, 20, 20); ctx.strokeRect(10, -52, 20, 20);
 
       ctx.fillStyle = "#1c1917"; ctx.fillRect(42, -45, 52, 45); ctx.strokeRect(42, -45, 52, 45);
 
@@ -153,12 +258,12 @@
       ctx.beginPath(); ctx.arc(52, 4, 11, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
       ctx.beginPath(); ctx.arc(82, 4, 11, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
     } else {
-      // Facing Left (Motion Right -> Left)
+      // Facing Left
       ctx.fillStyle = "#e63946"; ctx.fillRect(-42, -65, 42, 65);
       ctx.lineWidth = 2.5; ctx.strokeStyle = "#2b2b2b"; ctx.strokeRect(-42, -65, 42, 65);
 
-      ctx.fillStyle = "#2b2b2b"; ctx.fillRect(-46, -70, 50, 6); // Roof
-      ctx.fillStyle = "#ffb703"; ctx.fillRect(-30, -52, 20, 20); ctx.strokeRect(-30, -52, 20, 20); // Window
+      ctx.fillStyle = "#2b2b2b"; ctx.fillRect(-46, -70, 50, 6);
+      ctx.fillStyle = "#ffb703"; ctx.fillRect(-30, -52, 20, 20); ctx.strokeRect(-30, -52, 20, 20);
 
       ctx.fillStyle = "#1c1917"; ctx.fillRect(-94, -45, 52, 45); ctx.strokeRect(-94, -45, 52, 45);
 
@@ -183,7 +288,6 @@
 
     const wagonW = 100;
     const wagonH = 40;
-
     const drawX = dir === 1 ? 0 : -wagonW;
 
     ctx.fillStyle = tool.color;
@@ -221,25 +325,55 @@
     drawTrack(trackY2);
     drawTrack(trackY3);
 
+    // Render steam particles
     particles.forEach((p, idx) => {
       p.update();
       p.draw(ctx);
       if (p.opacity <= 0) particles.splice(idx, 1);
     });
 
+    // Render fireball explosion debris
+    explosionParticles.forEach((ep, idx) => {
+      ep.update();
+      ep.draw(ctx);
+      if (ep.opacity <= 0) explosionParticles.splice(idx, 1);
+    });
+
+    // Render each train
     trainConvoys.forEach((train) => {
       const trackY = height * train.trackYRatio;
-
-      train.x += train.dir * train.speed;
-
       const wagonSpacing = 112 * scale;
       const trainLength = train.tools.length * wagonSpacing + 120 * scale;
 
-      if (train.dir === 1 && train.x > width + 150) {
-        train.x = -trainLength - 100;
-      } else if (train.dir === -1 && train.x < -trainLength - 150) {
-        train.x = width + 150;
+      if (train.state === "RUNNING") {
+        train.x += train.dir * train.speed;
+
+        if (train.dir === 1 && train.x > width + 150) {
+          train.x = -trainLength - 100;
+        } else if (train.dir === -1 && train.x < -trainLength - 150) {
+          train.x = width + 150;
+        }
+      } else if (train.state === "DERAILING") {
+        train.derailTimer++;
+        train.derailAngle += train.dir * 0.15;
+        train.yOffset -= 2.5;
+
+        // Emit derailment smoke & sparks
+        const sparkX = train.x + (Math.random() - 0.5) * trainLength;
+        particles.push(new SteamParticle(sparkX, trackY + train.yOffset, train.dir));
+
+        if (train.derailTimer > 20) {
+          const centerX = train.dir === 1 ? train.x + trainLength / 2 : train.x - trainLength / 2;
+          triggerExplosion(train, centerX, trackY + train.yOffset);
+        }
+      } else if (train.state === "EXPLODING" || train.state === "RESPAWNING") {
+        // Train is exploded, hidden while debris flies & waiting to respawn
+        return;
       }
+
+      // Draw train with derailment transformation
+      ctx.save();
+      ctx.translate(0, train.yOffset);
 
       if (train.dir === 1) {
         train.tools.forEach((tool, idx) => {
@@ -250,7 +384,7 @@
         const locomotiveX = train.x + train.tools.length * wagonSpacing;
         drawLocomotiveEngine(locomotiveX, trackY, 1);
 
-        if (Math.random() < 0.2) {
+        if (train.state === "RUNNING" && Math.random() < 0.2) {
           particles.push(new SteamParticle(locomotiveX + 80 * scale, trackY - 69 * scale, 1));
         }
       } else {
@@ -262,10 +396,12 @@
         const locomotiveX = train.x - train.tools.length * wagonSpacing;
         drawLocomotiveEngine(locomotiveX, trackY, -1);
 
-        if (Math.random() < 0.2) {
+        if (train.state === "RUNNING" && Math.random() < 0.2) {
           particles.push(new SteamParticle(locomotiveX - 80 * scale, trackY - 69 * scale, -1));
         }
       }
+
+      ctx.restore();
     });
 
     requestAnimationFrame(loop);
