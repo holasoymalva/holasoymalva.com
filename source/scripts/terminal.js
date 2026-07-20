@@ -13,27 +13,27 @@
 
 [PROFILE]
   Name     : Martin Manriquez (@holasoymalva)
-  Role     : Software Engineer & Tech Architect
+  Role     : Senior Software Engineer & Tech Architect
   Location : Mexico City (CDMX)
   Email    : contact@holasoymalva.com
   LinkedIn : https://www.linkedin.com/in/martin-manriquez/
   GitHub   : https://github.com/holasoymalva
 
 [CAREER & EXPERIENCE HISTORY]
-  • BlackLine       (2023 — Present) | Software Engineer
-    - Scaling & maintaining cloud-based backend microservices.
-  • Guros           (2022 — 2023)    | Tech Lead
+  • Nexcar AI       (Feb 2026 — Present) | Senior Software Engineer
+    - Engineering AI-driven software, process automation & intelligent platform architecture.
+  • Ada             (Dec 2025 — May 2026)| Google Prep Interview Instructor
+    - Mentoring algorithms, data structures & tech interview prep for engineers.
+  • BlackLine       (Jan 2024 — Jan 2026)| Senior Software Engineer
+    - Provided technical expertise in the design & delivery of cloud platforms.
+  • Guros           (2022 — 2023)        | Tech Lead
     - Led core engineering, digital insurance architecture & releases.
-  • HeyGrows        (2021 — 2022)    | Product Manager & Co-Founder
+  • Globant         (2021 — 2023)        | Sr Software Engineer (Disney / Appetize)
+    - Angular, Vue.js, Node.js & Java microservices for Disney and Appetize.
+  • HeyGrows        (2021 — 2022)        | Product Manager & Co-Founder
     - Product strategy, telemetry analysis & technical execution.
-  • Globant         (2020 — 2021)    | Software Engineer
-    - Enterprise Angular, Vue.js frontends & Node.js backend microservices.
-  • Meta DevC CDMX  (2019 — 2021)    | Co-Dev Lead
+  • Meta DevC CDMX  (2019 — 2021)        | Co-Dev Lead
     - Community leader, workshops, hackathons & tech ecosystem growth.
-  • Coderhouse      (2020 — 2021)    | Tech Instructor
-    - Python & Java software development instructor.
-  • Grupo Salinas   (2018 — 2020)    | Software Engineer
-    - Python & JavaScript financial platforms & microservices.
 
 [ENGINEERING TOOLKIT]
   • Languages : Python, JavaScript, TypeScript, Golang, Erlang, Java
@@ -60,7 +60,7 @@ Type 'help' for command list, or type 'matrix' for CRT rain!
     resume: resumeSummary,
     stack: `
 [CORE TECH STACK]
-  • Python (Django, Flask, Data Services)
+  • Python (Django, Flask, AI Data Services)
   • JavaScript & TypeScript (React, Vue, Angular, Node.js)
   • Golang & Erlang (Distributed Systems)
   • WebGL 3D (Three.js, Canvas Shader, Spark AR)
@@ -68,13 +68,13 @@ Type 'help' for command list, or type 'matrix' for CRT rain!
 `,
     exp: `
 [CAREER HISTORY]
-  1. BlackLine (2023-Present) — Software Engineer
-  2. Guros (2022-2023) — Tech Lead
-  3. HeyGrows (2021-2022) — Co-Founder & PM
-  4. Globant (2020-2021) — Software Engineer
-  5. Meta DevC CDMX (2019-2021) — Co-Dev Lead
-  6. Coderhouse (2020-2021) — Instructor
-  7. Grupo Salinas (2018-2020) — Software Engineer
+  1. Nexcar AI (Feb 2026-Present) — Senior Software Engineer
+  2. Ada (Dec 2025-May 2026) — Google Prep Interview Instructor
+  3. BlackLine (Jan 2024-Jan 2026) — Senior Software Engineer
+  4. Globant (2021-2023) — Sr Software Engineer (Disney / Appetize)
+  5. Guros (2022-2023) — Tech Lead
+  6. HeyGrows (2021-2022) — Co-Founder & PM
+  7. Meta DevC CDMX (2019-2021) — Co-Dev Lead
 `,
     contact: `
 [DIRECT CONTACT FREQUENCY]

@@ -2,26 +2,26 @@ const translations = {
   en: {
     heroTag: "Available for High-Impact Projects",
     heroTitle: "CREATIVE SOFTWARE ENGINEER & TECH ARCHITECT",
-    heroSubtitle: "Hi, I'm Martin Manriquez (@holasoymalva). Building next-gen AI tools, WebGL experiences, and high-performance distributed systems.",
+    heroSubtitle: "Hi, I'm Martin Manriquez (@holasoymalva). Senior Software Engineer at Nexcar AI. Building next-gen AI tools, WebGL experiences, and high-performance distributed systems.",
     exploreBtn: "Explore Selected Works",
     terminalBtn: "Launch CLI Shell ~",
     
     ticker1: "META ALUMNI",
-    ticker2: "BLACKLINE SOFTWARE ENGINEER",
-    ticker3: "GUROS TECH LEAD",
-    ticker4: "CREATIVE CODING & WEBGL",
-    ticker5: "AI AGENTS & CLI TOOLS",
+    ticker2: "NEXCAR AI SENIOR SOFTWARE ENGINEER",
+    ticker3: "BLACKLINE SR SOFTWARE ENGINEER",
+    ticker4: "GUROS TECH LEAD",
+    ticker5: "CREATIVE CODING & AI AGENTS",
 
     aboutTag: "01 // ABOUT ME",
     aboutTitle: "Engineering with humor, precision & high speed.",
-    aboutP1: "I am a Software Engineer based in Mexico City with experience at world-class companies like Meta (Co-Dev Lead Meta DevC), Globant, Grupo Salinas, Guros, and BlackLine.",
+    aboutP1: "I am a Senior Software Engineer based in Mexico City with experience at world-class companies like Nexcar AI, BlackLine, Meta (Co-Dev Lead Meta DevC), Globant, and Guros.",
     aboutP2: "Passionate about Python, TypeScript, Go, WebGL 3D, and AI agent architectures. From building financial platforms to open-source developer CLI assistants, I love solving hard technical challenges.",
 
     expTag: "02 // CAREER JOURNEY",
     expTitle: "Proven track record at top tech companies.",
 
-    techTag: "03 // TECH STACK PHYSICS",
-    techTitle: "Drag & interact with my engineering toolkit.",
+    techTag: "03 // ENGINEERING TOOLKIT TRAINS",
+    techTitle: "8-Bit Express locomotives carrying my tech stack tools.",
 
     projectsTag: "04 // FEATURED WORKS",
     projectsTitle: "Award-caliber applications & AI tools.",
@@ -38,73 +38,71 @@ const translations = {
   es: {
     heroTag: "Disponible para proyectos de alto impacto",
     heroTitle: "CREATIVE SOFTWARE ENGINEER & TECH ARCHITECT",
-    heroSubtitle: "Hola, soy Martín Manríquez (@holasoymalva). Construyendo herramientas de IA de última generación, experiencias WebGL y sistemas distribuidos de alto rendimiento.",
+    heroSubtitle: "Hola, soy Martín Manríquez (@holasoymalva). Senior Software Engineer en Nexcar AI. Construyendo herramientas de IA de última generación, experiencias WebGL y sistemas distribuidos de alto rendimiento.",
     exploreBtn: "Explorar Trabajos",
     terminalBtn: "Abrir Terminal CLI ~",
 
     ticker1: "META ALUMNI",
-    ticker2: "BLACKLINE SOFTWARE ENGINEER",
-    ticker3: "GUROS TECH LEAD",
-    ticker4: "CREATIVE CODING & WEBGL",
+    ticker2: "NEXCAR AI SENIOR SOFTWARE ENGINEER",
+    ticker3: "BLACKLINE SR SOFTWARE ENGINEER",
+    ticker4: "GUROS TECH LEAD",
     ticker5: "HERRAMIENTAS IA & CLI",
 
     aboutTag: "01 // SOBRE MÍ",
     aboutTitle: "Ingeniería con precisión, velocidad y buen humor.",
-    aboutP1: "Soy Ingeniero de Software basado en Ciudad de México con experiencia en compañías de nivel mundial como Meta (Co-Dev Lead Meta DevC), Globant, Grupo Salinas, Guros y BlackLine.",
+    aboutP1: "Soy Senior Software Engineer basado en Ciudad de México con experiencia en compañías de nivel mundial como Nexcar AI, BlackLine, Meta (Co-Dev Lead Meta DevC), Globant y Guros.",
     aboutP2: "Apasionado por Python, TypeScript, Go, WebGL 3D y arquitecturas de agentes de IA. Desde la creación de plataformas financieras hasta asistentes CLI open-source, me encanta resolver grandes retos técnicos.",
 
     expTag: "02 // TRAYECTORIA",
     expTitle: "Experiencia comprobada en líderes tecnológicos.",
 
-    techTag: "03 // FÍSICAS DE TECH STACK",
-    techTitle: "Arrastra e interactúa con mi toolkit de ingeniería.",
+    techTag: "03 // TRENES DE TECH STACK",
+    techTitle: "Locomotoras 8-Bit Express transportando mis herramientas de ingeniería.",
 
     projectsTag: "04 // PROYECTOS DESTACADOS",
-    projectsTitle: "Aplicaciones y herramientas IA de alto nivel.",
+    projectsTitle: "Aplicaciones de nivel internacional y herramientas de IA.",
 
-    resourcesTag: "05 // RECURSOS & COMUNIDAD",
-    resourcesTitle: "Guías y contenido de valor para devs.",
+    resourcesTag: "05 // KNOWLEDGE BASE",
+    resourcesTitle: "Guías y Recursos de Comunidad.",
 
     contactTag: "06 // CONTACTO",
-    contactTitle: "HAGAMOS ALGO INCREÍBLE JUNTOS",
-    contactSub: "¿Tienes un proyecto, idea o desafío técnico? Escríbeme y pongámonos en contacto.",
+    contactTitle: "CONSTRUYAMOS ALGO INCREÍBLE JUNTOS",
+    contactSub: "¿Tienes un proyecto, idea de startup o reto técnico? Hablemos.",
 
-    footerMsg: "Creado con 🌮, WebGL y Good Vibes en CDMX."
+    footerMsg: "Creado con 🌮, WebGL & Buenas Vibras en Ciudad de México."
   }
 };
 
-(function () {
-  let currentLang = localStorage.getItem("preferredLang") || "en";
+function setLanguage(lang) {
+  const t = translations[lang] || translations.en;
+  
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.getAttribute("data-i18n");
+    if (t[key]) {
+      el.textContent = t[key];
+    }
+  });
 
-  function setLanguage(lang) {
-    currentLang = lang;
-    localStorage.setItem("preferredLang", lang);
+  const langBtn = document.getElementById("languageButton");
+  if (langBtn) {
+    langBtn.textContent = lang === "en" ? "🇺🇸 EN" : "🇲🇽 ES";
+  }
 
-    document.querySelectorAll("[data-i18n]").forEach((el) => {
-      const key = el.getAttribute("data-i18n");
-      if (translations[lang] && translations[lang][key]) {
-        el.innerHTML = translations[lang][key];
-      }
+  localStorage.setItem("userLanguage", lang);
+}
+
+function initLanguage() {
+  const savedLang = localStorage.getItem("userLanguage") || "en";
+  setLanguage(savedLang);
+
+  const langBtn = document.getElementById("languageButton");
+  if (langBtn) {
+    langBtn.addEventListener("click", () => {
+      const currentLang = localStorage.getItem("userLanguage") || "en";
+      const nextLang = currentLang === "en" ? "es" : "en";
+      setLanguage(nextLang);
     });
-
-    const langBtn = document.getElementById("languageButton");
-    if (langBtn) {
-      langBtn.innerHTML = lang === "en" ? "🇺🇸 EN" : "🇪🇸 ES";
-    }
   }
+}
 
-  function init() {
-    setLanguage(currentLang);
-
-    const langBtn = document.getElementById("languageButton");
-    if (langBtn) {
-      langBtn.addEventListener("click", () => {
-        const nextLang = currentLang === "en" ? "es" : "en";
-        setLanguage(nextLang);
-      });
-    }
-  }
-
-  window.addEventListener("DOMContentLoaded", init);
-  window.setLanguage = setLanguage;
-})();
+document.addEventListener("DOMContentLoaded", initLanguage);
