@@ -1,5 +1,5 @@
 /**
- * 3-Track Railway Engine with Subtle Metallic Micro-Chugging & Curved Articulated Derailment Physics
+ * 3-Track Railway Engine with Smooth Micro-Chugging, Gentle Articulated Wave Deformation & Elegant Pixel Fireball Explosion
  */
 
 (function () {
@@ -63,16 +63,16 @@
     constructor(x, y, dir) {
       this.x = x;
       this.y = y;
-      this.vx = -dir * (Math.random() * 1.5 + 0.5);
-      this.vy = -Math.random() * 1.8 - 0.8;
-      this.size = Math.random() * 8 + 5;
-      this.opacity = 0.8;
+      this.vx = -dir * (Math.random() * 1.2 + 0.3);
+      this.vy = -Math.random() * 1.5 - 0.5;
+      this.size = Math.random() * 7 + 4;
+      this.opacity = 0.7;
     }
 
     update() {
       this.x += this.vx;
       this.y += this.vy;
-      this.size += 0.25;
+      this.size += 0.2;
       this.opacity -= 0.02;
     }
 
@@ -88,23 +88,23 @@
     constructor(x, y) {
       this.x = x;
       this.y = y;
-      this.vx = (Math.random() - 0.5) * 11;
-      this.vy = -Math.random() * 9 - 2;
-      this.size = Math.random() * 12 + 6;
+      this.vx = (Math.random() - 0.5) * 4.5; // Smooth controlled velocity
+      this.vy = -Math.random() * 4 - 1;
+      this.size = Math.random() * 10 + 5;
       this.color = ["#e63946", "#ffb703", "#f3722c", "#1c1917", "#57534e"][
         Math.floor(Math.random() * 5)
       ];
-      this.opacity = 1;
+      this.opacity = 0.95;
       this.rot = Math.random() * Math.PI * 2;
-      this.vRot = (Math.random() - 0.5) * 0.25;
+      this.vRot = (Math.random() - 0.5) * 0.1;
     }
 
     update() {
       this.x += this.vx;
       this.y += this.vy;
-      this.vy += 0.42; // Gravity
+      this.vy += 0.18; // Gentle gravity
       this.rot += this.vRot;
-      this.opacity -= 0.025;
+      this.opacity -= 0.02;
     }
 
     draw(ctx) {
@@ -152,7 +152,8 @@
     train.state = "EXPLODING";
     if (window.playExplosionSound) window.playExplosionSound();
 
-    for (let i = 0; i < 50; i++) {
+    // 20 smooth pixel fireball particles instead of 50
+    for (let i = 0; i < 22; i++) {
       explosionParticles.push(new FireballDebris(centerX, centerY));
     }
 
@@ -303,7 +304,7 @@
   function loop() {
     ctx.clearRect(0, 0, width, height);
 
-    const animTime = Date.now() * 0.002; // Very smooth slow time progression
+    const animTime = Date.now() * 0.002;
 
     const trackY1 = height * trainConvoys[0].trackYRatio;
     const trackY2 = height * trainConvoys[1].trackYRatio;
@@ -344,16 +345,16 @@
       } else if (train.state === "DERAILING") {
         train.derailTimer++;
 
-        if (train.derailTimer > 24) {
+        if (train.derailTimer > 20) {
           const centerX = train.dir === 1 ? train.x + trainLength / 2 : train.x - trainLength / 2;
-          triggerExplosion(train, centerX, trackY - 20 * scale);
+          triggerExplosion(train, centerX, trackY - 15 * scale);
           return;
         }
       } else if (train.state === "EXPLODING" || train.state === "RESPAWNING") {
         return;
       }
 
-      // Render wagons & locomotive with subtle metallic micro-chugging & curved accordion derailment
+      // Render wagons & locomotive with subtle metallic micro-chugging & gentle wave deformation
       if (train.dir === 1) {
         // Motion Left -> Right
         train.tools.forEach((tool, idx) => {
@@ -363,16 +364,17 @@
           let rotAngle = 0;
 
           if (train.state === "RUNNING") {
-            // Very subtle micro-chug (0.4px bob, 0.005 tilt)
             yOffset = Math.sin(animTime * 3 + idx * 0.8) * 0.4 * scale;
             rotAngle = Math.sin(animTime * 4 + idx * 1.0) * 0.005;
           } else if (train.state === "DERAILING") {
-            // Articulated Curved Accordion Bending
-            rotAngle = Math.sin(idx * 1.2 + train.derailTimer * 0.25) * 0.45;
-            yOffset = -Math.pow(idx + 1, 1.2) * 5 * scale - train.derailTimer * 3.5;
+            // Gentle S-curve wave deformation
+            rotAngle = Math.sin(idx * 0.8 + train.derailTimer * 0.15) * 0.12;
+            yOffset = -train.derailTimer * 1.2 * scale - Math.sin(idx * 0.9) * 4 * scale;
 
-            const sparkX = wagonX + (Math.random() - 0.5) * 20;
-            particles.push(new SteamParticle(sparkX, trackY + yOffset, 1));
+            if (Math.random() < 0.3) {
+              const sparkX = wagonX + (Math.random() - 0.5) * 15;
+              particles.push(new SteamParticle(sparkX, trackY + yOffset, 1));
+            }
           }
 
           ctx.save();
@@ -390,8 +392,8 @@
           locoY = Math.sin(animTime * 3 + train.tools.length * 0.8) * 0.4 * scale;
           locoRot = Math.sin(animTime * 4 + train.tools.length * 1.0) * 0.005;
         } else if (train.state === "DERAILING") {
-          locoRot = Math.sin((train.tools.length + 1) * 1.2 + train.derailTimer * 0.25) * 0.45;
-          locoY = -Math.pow(train.tools.length + 1, 1.2) * 5 * scale - train.derailTimer * 3.5;
+          locoRot = Math.sin((train.tools.length + 1) * 0.8 + train.derailTimer * 0.15) * 0.12;
+          locoY = -train.derailTimer * 1.2 * scale - Math.sin((train.tools.length + 1) * 0.9) * 4 * scale;
         }
 
         ctx.save();
@@ -415,11 +417,13 @@
             yOffset = Math.sin(animTime * 3 + idx * 0.8) * 0.4 * scale;
             rotAngle = -Math.sin(animTime * 4 + idx * 1.0) * 0.005;
           } else if (train.state === "DERAILING") {
-            rotAngle = -Math.sin(idx * 1.2 + train.derailTimer * 0.25) * 0.45;
-            yOffset = -Math.pow(idx + 1, 1.2) * 5 * scale - train.derailTimer * 3.5;
+            rotAngle = -Math.sin(idx * 0.8 + train.derailTimer * 0.15) * 0.12;
+            yOffset = -train.derailTimer * 1.2 * scale - Math.sin(idx * 0.9) * 4 * scale;
 
-            const sparkX = wagonX + (Math.random() - 0.5) * 20;
-            particles.push(new SteamParticle(sparkX, trackY + yOffset, -1));
+            if (Math.random() < 0.3) {
+              const sparkX = wagonX + (Math.random() - 0.5) * 15;
+              particles.push(new SteamParticle(sparkX, trackY + yOffset, -1));
+            }
           }
 
           ctx.save();
@@ -437,8 +441,8 @@
           locoY = Math.sin(animTime * 3 + train.tools.length * 0.8) * 0.4 * scale;
           locoRot = -Math.sin(animTime * 4 + train.tools.length * 1.0) * 0.005;
         } else if (train.state === "DERAILING") {
-          locoRot = -Math.sin((train.tools.length + 1) * 1.2 + train.derailTimer * 0.25) * 0.45;
-          locoY = -Math.pow(train.tools.length + 1, 1.2) * 5 * scale - train.derailTimer * 3.5;
+          locoRot = -Math.sin((train.tools.length + 1) * 0.8 + train.derailTimer * 0.15) * 0.12;
+          locoY = -train.derailTimer * 1.2 * scale - Math.sin((train.tools.length + 1) * 0.9) * 4 * scale;
         }
 
         ctx.save();
