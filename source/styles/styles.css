@@ -657,17 +657,55 @@ section.content-section {
 }
 
 .timeline-content {
+  position: relative;
+  z-index: 2;
   background: var(--bg-card);
   border: 3px solid var(--border-color);
   box-shadow: 5px 5px 0 var(--border-color);
   padding: 24px 28px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
 }
 
 .timeline-content:hover {
-  transform: translate(-3px, -3px);
+  transform: translateX(-14px) translateY(-2px);
   box-shadow: 8px 8px 0 var(--border-color);
   border-color: var(--accent-red);
+}
+
+.peeking-pixel-alien {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  width: 56px;
+  height: 56px;
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  image-rendering: pixelated;
+  transform: translateY(-50%) translateX(0) scale(0.6) rotate(15deg);
+  transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.25s ease;
+}
+
+.peeking-pixel-alien.ufo-variant {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='64' height='64' shape-rendering='crispEdges'%3E%3Crect x='12' y='4' width='8' height='4' fill='%2300ffcc'/%3E%3Crect x='10' y='8' width='12' height='4' fill='%2300ffcc'/%3E%3Crect x='14' y='6' width='3' height='3' fill='%2338b000'/%3E%3Crect x='15' y='7' width='1' height='1' fill='%23000'/%3E%3Crect x='8' y='12' width='16' height='4' fill='%237209b7'/%3E%3Crect x='4' y='16' width='24' height='4' fill='%23ffb703'/%3E%3Crect x='2' y='20' width='28' height='4' fill='%232b2b2b'/%3E%3Crect x='6' y='21' width='3' height='2' fill='%23e63946'/%3E%3Crect x='14' y='21' width='4' height='2' fill='%2338b000'/%3E%3Crect x='23' y='21' width='3' height='2' fill='%23ffb703'/%3E%3C/svg%3E");
+}
+
+.peeking-pixel-alien.alien-variant {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='64' height='64' shape-rendering='crispEdges'%3E%3Crect x='10' y='4' width='4' height='4' fill='%2338b000'/%3E%3Crect x='18' y='4' width='4' height='4' fill='%2338b000'/%3E%3Crect x='12' y='8' width='8' height='4' fill='%2338b000'/%3E%3Crect x='8' y='12' width='16' height='8' fill='%2338b000'/%3E%3Crect x='10' y='14' width='3' height='4' fill='%23000'/%3E%3Crect x='19' y='14' width='3' height='4' fill='%23000'/%3E%3Crect x='6' y='16' width='4' height='8' fill='%2338b000'/%3E%3Crect x='22' y='16' width='4' height='8' fill='%2338b000'/%3E%3Crect x='8' y='20' width='16' height='4' fill='%2338b000'/%3E%3Crect x='12' y='24' width='3' height='6' fill='%2338b000'/%3E%3Crect x='17' y='24' width='3' height='6' fill='%2338b000'/%3E%3C/svg%3E");
+}
+
+.timeline-content:hover .peeking-pixel-alien {
+  opacity: 1;
+  animation: alienPeekBob 1.6s ease-in-out infinite alternate;
+}
+
+@keyframes alienPeekBob {
+  0% { transform: translateY(-50%) translateX(44px) scale(1) rotate(0deg); }
+  50% { transform: translateY(-56%) translateX(48px) scale(1.05) rotate(4deg); }
+  100% { transform: translateY(-44%) translateX(42px) scale(0.98) rotate(-3deg); }
 }
 
 .timeline-header {
