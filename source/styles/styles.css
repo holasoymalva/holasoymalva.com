@@ -670,6 +670,37 @@ section.content-section {
   border-color: var(--accent-red);
 }
 
+.timeline-ufo-badge {
+  position: absolute;
+  top: -24px;
+  right: 16px;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0;
+  transform: translateY(10px) scale(0.7);
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: auto;
+}
+
+.timeline-content:hover .timeline-ufo-badge {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.timeline-content.ufo-detonated {
+  animation: ufoJiggle 0.35s steps(4, end);
+}
+
+@keyframes ufoJiggle {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(-4px, 3px) rotate(-1.5deg); }
+  50% { transform: translate(4px, -2px) rotate(1.5deg); }
+  75% { transform: translate(-2px, 1px) rotate(-0.5deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
 .timeline-header {
   display: flex;
   justify-content: space-between;
