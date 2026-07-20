@@ -1,14 +1,19 @@
-const modeButton = document.getElementById('modeButton');
-const body = document.body;
+(function () {
+  const modeButton = document.getElementById("modeButton");
+  const body = document.body;
 
-// Check for saved theme preference or default to light mode
-const currentTheme = localStorage.getItem('theme') || 'light';
-if (currentTheme === 'dark') {
-  body.classList.add('dark-mode');
-}
+  // Default theme is dark for Locomotive aesthetics
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "light") {
+    body.classList.add("light-mode");
+  }
 
-modeButton.addEventListener('click', () => {
-  body.classList.toggle('dark-mode');
-  const theme = body.classList.contains('dark-mode') ? 'dark' : 'light';
-  localStorage.setItem('theme', theme);
-});
+  if (modeButton) {
+    modeButton.addEventListener("click", () => {
+      body.classList.toggle("light-mode");
+      const isLight = body.classList.contains("light-mode");
+      localStorage.setItem("theme", isLight ? "light" : "dark");
+      modeButton.innerHTML = isLight ? "☀️ LIGHT" : "🌙 DARK";
+    });
+  }
+})();

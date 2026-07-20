@@ -2,539 +2,475 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>holasoymalva</title>
+    <title>Martin Manriquez (@holasoymalva) — Creative Software Engineer & Tech Architect</title>
     <link rel="icon" href="./source/img/favicon-16x16.png" type="image/png" />
+    
     <meta
       name="description"
-      content="Malva is a software Engineer that works with Javascript, Earlang, Python, Golang and Java."
+      content="Martin Manriquez (@holasoymalva) is a Software Engineer & Tech Architect specializing in Python, TypeScript, WebGL 3D, and AI Agent architectures."
     />
     <meta
       name="keywords"
-      content="HTML, FRONTEND, FULLSTACK, BACKEND, JAVASCRIPT, REACT.JS, VUE.JS, ANGULAR, GOLANG, PYTHON, SOFTWARE ENGINEER, DEVELOPER, JAVA, CREATIVE CODING"
+      content="SOFTWARE ENGINEER, CREATIVE DEVELOPER, WEBGL, THREE.JS, RETRO ARCADE, PIXEL ART, PYTHON, TYPESCRIPT, DEEPSEEK, BLACKLINE, GLOBANT, META"
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link 
-      rel="stylesheet" 
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-      media="print" 
-      onload="this.media='all'">
-    <link rel="stylesheet" href="source/styles/styles.css" />
-  </head>
 
+    <!-- Google Fonts: VT323 (CRT), Silkscreen (Pixel), Space Mono (Vintage Typewriter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=VT323&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- FontAwesome 6 -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="source/styles/styles.css" />
+
+    <!-- Three.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  </head>
   <body>
-    <header>
-      <p><a href="/" class="t__uva t__rainbow">@holasoymalva</a></p>
-      <div class="header-buttons">
-        <button class="languages" type="button" id="languageButton"><p>🇺🇸|🇪🇸</p></button>
-        <button class="mode-toggle" type="button" id="modeButton"><p>🌞|🌜</p></button>
+    <!-- Analogue Paper Noise & CRT Scanlines Overlay -->
+    <div class="paper-texture"></div>
+    <div class="crt-scanlines"></div>
+
+    <!-- Custom Pixel Cursor -->
+    <div class="custom-cursor-dot"></div>
+    <div class="custom-cursor-outline"></div>
+
+    <!-- Header Navigation -->
+    <header class="site-header">
+      <a href="#" class="header-brand">
+        <span class="brand-pixel-box"></span>
+        <span>@holasoymalva</span>
+      </a>
+
+      <div class="header-controls">
+        <button id="soundToggle" class="btn-pill" aria-label="Toggle Sound Effects">
+          <i class="fa-solid fa-volume-xmark"></i>
+          <span>8-BIT OFF</span>
+        </button>
+        
+        <button id="languageButton" class="btn-pill" aria-label="Toggle Language">
+          🇺🇸 EN
+        </button>
+
+        <button id="modeButton" class="btn-pill" aria-label="Toggle Dark / Light Theme">
+          🌙 CRT NIGHT
+        </button>
+
+        <button class="btn-pill terminal-trigger" aria-label="Open Arcade Terminal">
+          <i class="fa-solid fa-gamepad"></i>
+          <span>~/arcade</span>
+        </button>
       </div>
     </header>
-    <div class="marvel">
-      <section class="marvel__intro">
-        <h1 class="shake_it">
-          <div class="video-container">
-            <video
-              src="./source/img/EmojiMovie694127128.mov"
-              autoplay
-              loop
-              muted
-              playsinline
-              webkit-playsinline
-              x5-playsinline
-              preload="none"
-              style="height: 140px; margin-bottom: -12px; background-color: transparent; object-fit: contain;"
-              poster="./source/img/martin-logo.png"
-            ></video>
-          </div>
-          <br />
-          <span id="intro">Hi, I’m <span class="t__marker">Martin</span><span class="wave">👋</span></span>
-        </h1>
-        <p class="t__rainbow" id="introDescription">Developer, Maker & Designer</p>
-                <div class="stage">
-          <a
-            href="https://github.com/holasoymalva"
-            target="_blank"
-            class="fa fa-brands fa-github box jump"
-          ></a>
-          <a
-            href="https://www.instagram.com/holasoymalva/"
-            target="_blank"
-            class="fa fa-brands fa-instagram box jump"
-          ></a>
-          <a
-            href="https://www.tiktok.com/@holasoymalva"
-            target="_blank"
-            class="fa fa-brands fa-tiktok box jump"
-          ></a>
-          <a
-            href="https://www.youtube.com/@holasoymalva/"
-            target="_blank"
-            class="fa fa-brands fa-youtube box jump"
-          ></a>
-          <a
-            href="https://www.twitch.tv/holasoymalva"
-            target="_blank"
-            class="fa fa-brands fa-twitch box jump"
-          ></a>
-          <a
-            href="https://www.linkedin.com/in/martin-manriquez/"
-            target="_blank"
-            class="fa fa-brands fa-linkedin box jump"
-          ></a>
-          <a
-            href="https://twitter.com/holasoymalva"
-            target="_blank"
-            class="fa fa-brands fa-twitter box jump"
-          ></a>
-          <a
-            href="https://medium.com/@holasoymalva"
-            target="_blank"
-            class="fa fa-brands fa-medium box jump"
-          ></a>
-          <a
-            href="https://dev.to/holasoymalva"
-            target="_blank"
-            class="fa fa-brands fa-dev box jump"
-          ></a>
-        </div>
-      </section>
-      <section class="marvel__section">
-        <h2 id="aboutTitle"><span class="t__marker">About</span> Me</h2>
-        <p id="about">
-          Hi <span class="wave">👋</span>, My name is
-          <span class="t__uva">Martin</span> and I am a
-          <span class="t__bold t__uva">Software Engineer 🧑🏽‍💻</span> with
-          experience at companies like
-          <span class="t__uva">Facebook, Amazon, and Disney</span>, as well as
-          various open source projects. I am passionate about using my skills to
-          build innovative and user-friendly applications that make a positive
-          impact on people's lives.
-        </p>
-      </section>
-      <section class="marvel__section">
-        <h2><span class="t__marker">Tech</span>Stack</h2>
-        <p id="techStack">
-          My main technology stack is conformed by
-          <span class="t__uva">Python, JavaScript, Typescript,</span> and their
-          frameworks
-          <span class="t__uva">Django, Flask, Angular, React</span> and
-          <span class="t__uva">Vue,</span> but I don't limit myself to just
-          these languages ​​and their tools, since I work comfortably with
-          <span class="t__uva">Figma, GitHub, Spark AR, Unity</span> and
-          <span class="t__uva">Xcode</span> for development and UI/UX design.
-        </p>
-        <div class="marvel__flex">
-          <img
-            src="/source/img/tool_01.png"
-            alt="JAVASCRIPT ICON"
-            class="marvel__card slow_shake_it"
-            loading="lazy"
-          />
-          <img
-            src="/source/img/tool_02.png"
-            alt="FIGMA ICON"
-            class="marvel__card slow_shake_it"
-            loading="lazy"
-          />
-          <img
-            src="/source/img/tool_03.png"
-            alt="REACT.JS ICON"
-            class="marvel__card slow_shake_it"
-            loading="lazy"
-          />
-          <img
-            src="/source/img/tool_04.png"
-            alt="SPARK AR ICON"
-            class="marvel__card slow_shake_it"
-            loading="lazy"
-          />
-        </div>
-      </section>
-      <section class="marvel__section">
-        <h2 id="experienceTitle">My<span class="t__marker">Experience</span></h2>
-        <p id="experience">
-          In my career, I have had the opportunity to work on a wide range of
-          projects, from large-scale web applications to small utility tools,
-          and I have always enjoyed the challenge of finding creative solutions
-          to complex problems. While I take my work seriously, I also believe in
-          having fun and bringing a sense of humor to everything I do.
-        </p>
-        <div class="marvel__column">
-          <ul>
-            <li>
-              <div>
-                <h3 class="marvel__column__job">Grupo Salinas</h3>
-                <p class="mrg-20 t__uva">Software Engineer</p>
-                <img
-                  src="./source/img/companies/gs.png"
-                  alt=""
-                  class="marvel__column__logo"
-                />
-                <p class="marvel__column__description">
-                  Worked with Python and JavaScript to develop a financial
-                  assistant and its services, adapting quickly to company
-                  technologies, policies, and regulations. Successfully launched
-                  assistant and reactivated company services through internal
-                  platform, leading to professional and personal growth.
-                </p>
-              </div>
-            </li>
-            <li>
-              <div>
-                <h3 class="marvel__column__job">Meta Developer Circles</h3>
-                <p class="mrg-20 t__uva">Co Dev Lead</p>
-                <img
-                  src="/source/img/companies/meta.webp"
-                  alt=""
-                  class="marvel__column__logo"
-                />
-                <p class="marvel__column__description">
-                  Worked on promoting and diffusing company's tech stack through
-                  events to support and strengthen local tech ecosystem. Created
-                  documentation, maintained repositories, and organized
-                  workshops and tutorials, leading to the creation of a highly
-                  active developer community in Mexico City. Participated in
-                  events such as DevFest, and NodeConf. Developed communication
-                  and collaboration skills and contributed to the local tech
-                  community.
-                </p>
-              </div>
-            </li>
-            <li>
-              <div>
-                <h3 class="marvel__column__job">Coderhouse</h3>
-                <p class="mrg-20 t__uva">Teacher</p>
-                <img
-                  src="/source/img/companies/ch.png"
-                  alt=""
-                  class="marvel__column__logo"
-                />
-                <p class="marvel__column__description">
-                  Taught programming languages like Python and Java to students
-                  and adapted teaching to individual needs. Developed
-                  communication and explanation skills and learned to be
-                  patient. Enjoyed working with students of different skill
-                  levels and seeing their progress. Enriching experience that
-                  allowed for effective transmission of knowledge.
-                </p>
-              </div>
-            </li>
-            <li>
-              <div>
-                <h3 class="marvel__column__job">
-                  Globant
-                </h3>
-                <p class="mrg-20 t__uva">Software Engineer</p>
-                <img
-                  src="/source/img/companies/images.png"
-                  alt=""
-                  class="marvel__column__logo"
-                />
-                <p class="marvel__column__description">
-                  Worked on different projects and platforms, performing tasks
-                  including maintenance and creation of new platforms using
-                  latest versions of Angular, Polymer components, and Node.js
-                  services.
-                  <br>
-                  <br>
-                  Developed platform and API using Node.js and Vue.js
-                  architecture, integrating updates and refactoring website
-                  appearance, Successfully launching an initial version. Grew as
-                  a person and learned emerging technologies while working with
-                  team.
-                </p>
-              </div>
-            </li>
-            <li>
-              <div>
-                <h3 class="marvel__column__job">
-                  Guros
-                </h3>
-                <p class="mrg-20 t__uva">Tech Lead</p>
-                <img
-                  src="/source/img/companies/guros.jpeg"
-                  alt=""
-                  class="marvel__column__logo"
-                />
-                <p class="marvel__column__description">
-                  Design and prototype different sets of digital solutions.
-                  Maintain the highest quality of our code and move at the speed of light.
-                  Improve the features of our projects. 
-                </p>
-              </div>
-            </li>
-            <li>
-              <div>
-                <h3 class="marvel__column__job">
-                  HeyGrows
-                </h3>
-                <p class="mrg-20 t__uva">Product Manager - Co Founder</p>
-                <img
-                  src="/source/img/companies/heygrows.png"
-                  alt=""
-                  class="marvel__column__logo"
-                />
-                <p class="marvel__column__description">
-                  Deliver impact and results by defining success metrics, analyzing data for insights, prioritizing what to build, and
-                  coordinating with partner teams to align efforts to business strategies
-                </p>
-              </div>
-            </li>
-            <li>
-              <div>
-                <h3 class="marvel__column__job">
-                  BlackLine
-                  <span class="marvel__column__now">NOW</span>
-                  <span class="wave">👈</span>
-                </h3>
-                <p class="mrg-20 t__uva">Software Engineer</p>
-                <img
-                  src="/source/img/companies/blackline-logo.jpeg"
-                  alt=""
-                  class="marvel__column__logo"
-                />
-                <p class="marvel__column__description">
-                  Delivering high-quality releases to our customers by designing, developing, troubleshooting, maintaining, optimizing
-                  and scaling BlackLine’s cloud- based backend services and driving innovation into our product suite.
-                </p>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </section>
 
-      <!-- Project Section -->
-      <section class="marvel__section">
-        <h2 id="projectsTitle">My<span class="t__marker">Projects</span></h2>
-        <p id="projectsIntro"></p>
-        <!-- Working in the gallery 🦄 👇 -->
-        <div class="grid gap-4">
-          <div class="project medium_shake_it">
-            <div class="project__header">
-              <img src="./source/img/project_manyllms.png" alt="" />
-            </div>
-            <div class="project__body">
-              <p class="t__uva">Many LLMs</p>
-              <p class="project__description">
-                Run many local models. One simple workspace. Local-first
-                privacy. Unified chat. OpenAI-compatible API. Zero-cloud by
-                default.
-              </p>
-            </div>
-            <a
-              href="https://www.manyllm.pro/"
-              class="project__link"
-              target="_blank"
-            ></a>
-          </div>
-          <div class="project medium_shake_it">
-            <div class="project__header">
-              <img src="./source/img/project_deepseek-cli.png" alt="" />
-            </div>
-            <div class="project__body">
-              <p class="t__uva">Deepseek-cli</p>
-              <p class="project__description">
-                A command-line AI coding assistant that leverages the powerful
-                DeepSeek Coder models to accelerate your development workflows
-                and enhance your coding experience. 🚀.
-              </p>
-            </div>
-            <a
-              href="https://github.com/holasoymalva/deepseek-cli"
-              target="_blank"
-              class="project__link"
-            ></a>
-          </div>
+    <!-- WebGL Background Canvas -->
+    <canvas id="webgl-hero-canvas"></canvas>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-status-tag" data-i18n="heroTag">
+        Available for High-Impact Projects
+      </div>
+
+      <h1 class="hero-title" data-i18n="heroTitle">
+        CREATIVE <span class="accent-red">SOFTWARE ENGINEER</span> & TECH ARCHITECT
+      </h1>
+
+      <p class="hero-subtitle" data-i18n="heroSubtitle">
+        Hi, I'm Martin Manriquez (@holasoymalva). Building next-gen AI tools, WebGL 3D experiences, and high-performance distributed systems.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#projects" class="btn-primary">
+          <span data-i18n="exploreBtn">Explore Selected Works</span>
+          <i class="fa-solid fa-arrow-down-long"></i>
+        </a>
+
+        <button class="btn-secondary terminal-trigger">
+          <i class="fa-solid fa-terminal"></i>
+          <span data-i18n="terminalBtn">Launch Arcade Shell ~</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Kinetic Ticker Marquee -->
+    <div class="marquee-container">
+      <div class="marquee-track">
+        <div class="marquee-item">
+          <span class="highlight">//</span> <span data-i18n="ticker1">META ALUMNI</span>
+          <span class="highlight">//</span> <span data-i18n="ticker2">BLACKLINE SOFTWARE ENGINEER</span>
+          <span class="highlight">//</span> <span data-i18n="ticker3">GUROS TECH LEAD</span>
+          <span class="highlight">//</span> <span data-i18n="ticker4">CREATIVE CODING & WEBGL</span>
+          <span class="highlight">//</span> <span data-i18n="ticker5">AI AGENTS & CLI TOOLS</span>
         </div>
-        <div class="grid gap-4">
-          <div class="project medium_shake_it">
-            <div class="project__header">
-              <img src="./source/img/project_artSeries.png" alt="" />
-            </div>
-            <div class="project__body">
-              <p class="t__uva">Spark AR - Art Series</p>
-              <p class="project__description">
-                A practical guide with the use of resources of public domine to
-                create interactive experiences for museums, artists, schools or
-                everyone who love instagram filters. 🚀.
-              </p>
-            </div>
-            <a
-              href="https://devpost.com/software/spart-ar"
-              target="_blank"
-              class="project__link"
-            ></a>
-          </div>
-          <div class="project medium_shake_it">
-            <div class="project__header">
-              <img src="./source/img/project_sayme.png" alt="" />
-            </div>
-            <div class="project__body">
-              <p class="t__uva">Sayme</p>
-              <p class="project__description">
-                A chatbot assistant for travers, with the use of translations an
-                image processing. 🚀.
-              </p>
-            </div>
-            <a
-              href="https://devpost.com/software/sayme"
-              class="project__link"
-              target="_blank"
-            ></a>
-          </div>
+        <div class="marquee-item">
+          <span class="highlight">//</span> <span data-i18n="ticker1">META ALUMNI</span>
+          <span class="highlight">//</span> <span data-i18n="ticker2">BLACKLINE SOFTWARE ENGINEER</span>
+          <span class="highlight">//</span> <span data-i18n="ticker3">GUROS TECH LEAD</span>
+          <span class="highlight">//</span> <span data-i18n="ticker4">CREATIVE CODING & WEBGL</span>
+          <span class="highlight">//</span> <span data-i18n="ticker5">AI AGENTS & CLI TOOLS</span>
         </div>
-      </section>
-      <section class="marvel__section">
-        <h2 id="contactTitle"><span class="t__marker">Contact</span>Me</h2>
-        <p id="contact">
-          I hope this website gives you a sense of who I am as a developer and a
-          person, and I look forward to connecting with you and learning more
-          about your projects and interests. Thank you for visiting!
-          <span class="wave">👋</span>
-        </p>
-        <div class="stage">
-          <a
-            href="https://github.com/holasoymalva"
-            target="_blank"
-            class="fa fa-brands fa-github box jump"
-          ></a>
-          <a
-            href="https://www.instagram.com/holasoymalva/"
-            target="_blank"
-            class="fa fa-brands fa-instagram box jump"
-          ></a>
-          <a
-            href="https://www.tiktok.com/@holasoymalva"
-            target="_blank"
-            class="fa fa-brands fa-tiktok box jump"
-          ></a>
-          <a
-            href="https://www.youtube.com/@holasoymalva/"
-            target="_blank"
-            class="fa fa-brands fa-youtube box jump"
-          ></a>
-          <a
-            href="https://www.twitch.tv/holasoymalva"
-            target="_blank"
-            class="fa fa-brands fa-twitch box jump"
-          ></a>
-          <a
-            href="https://www.linkedin.com/in/martin-manriquez/"
-            target="_blank"
-            class="fa fa-brands fa-linkedin box jump"
-          ></a>
-          <a
-            href="https://twitter.com/holasoymalva"
-            target="_blank"
-            class="fa fa-brands fa-twitter box jump"
-          ></a>
-          <a
-            href="https://medium.com/@holasoymalva"
-            target="_blank"
-            class="fa fa-brands fa-medium box jump"
-          ></a>
-          <a
-            href="https://dev.to/holasoymalva"
-            target="_blank"
-            class="fa fa-brands fa-dev box jump"
-          ></a>
-        </div>
-      </section>
-      <section class="marvel__section">
-        <h2 id="contentTitle"><span class="t__marker">Contenido</span> y recursos</h2>
-          <ul style="list-style: none;">
-            <li class="shake_it"> 
-              <a href="https://east-alyssum-6ed.notion.site/English-4-Developers-2-0-9100dc12931e483a8973de3fc4803689" target="_blank">
-                <span
-                class="fa fa-solid fa-earth-americas box"></span> 
-                Recursos para aprender ingles
-              </a>
-            </li>
-            <li class="shake_it"> 
-              <a href="https://east-alyssum-6ed.notion.site/Apuntes-de-Malva-3-0-5fc52df71d624ae6a5ad5a992d4e1ec0"
-              target="_blank">
-                <span class="fa fa-solid fa-laptop-code box"></span>
-                Recursos para aprender desarrollo Web
-              </a>
-            </li>
-            <li class="shake_it"> 
-              <a href="https://docs.google.com/document/d/1KnHCRejooCvxNh0WFdRWKhPlvb6bEpjcindu0fBD-k0/edit?usp=sharing"
-              target="_blank">
-                <span class="fa fa-solid fa-newspaper box"></span>
-                Formato de CV
-              </a>
-            </li>
-          </ul>
-      </section>
+      </div>
     </div>
-    <footer class="t__rainbow">Made with 🌮 and Good Vibes 🍟</footer>
-    <script src="source/scripts/translate.js" defer></script>
-    <script src="source/scripts/mode.js" defer></script>
-    <script src="source/scripts/scroll.js" defer></script>
-    <script>
-      (function(){
-        var isWindows = /Windows NT/i.test(navigator.userAgent);
-        if (!isWindows) return;
-        var vc = document.querySelector('.video-container');
-        if (!vc) return;
-        var v = vc.querySelector('video');
-        if (!v) return;
-        try { v.pause(); } catch(e) {}
-        v.removeAttribute('src');
-        if (v.load) v.load();
-        v.style.display = 'none';
-        var img = document.createElement('img');
-        img.src = './source/img/martin-logo.png';
-        img.alt = 'logo';
-        img.style.height = '140px';
-        img.style.marginBottom = '-12px';
-        img.style.display = 'inline-block';
-        img.style.backgroundColor = 'transparent';
-        vc.appendChild(img);
-        vc.classList.add('appear');
-      })();
-    </script>
-    <script>
-      (function(){
-        var vc = document.querySelector('.video-container');
-        if (!vc) return;
-        var v = vc.querySelector('video');
-        if (v) { v.style.visibility = 'hidden'; }
-        var colors = ['#ffbd12','#a259fe','#f24e1e','#14b8a6','#ef4444','#3b82f6','#22c55e'];
-        var count = 36;
-        var frag = document.createDocumentFragment();
-        for (var i = 0; i < count; i++) {
-          var c = document.createElement('div');
-          c.className = 'confetti';
-          var angle = Math.random() * Math.PI * 2;
-          var dist = 80 + Math.random() * 80;
-          var tx = Math.cos(angle) * dist;
-          var ty = Math.sin(angle) * dist;
-          var rot = Math.floor(Math.random() * 360) + 'deg';
-          var wind = (Math.random() * 80 - 40) + 'px';
-          c.style.setProperty('--tx', tx + 'px');
-          c.style.setProperty('--ty', ty + 'px');
-          c.style.setProperty('--rot', rot);
-          c.style.setProperty('--wind', wind);
-          c.style.backgroundColor = colors[i % colors.length];
-          if (Math.random() < 0.5) { c.style.width = '6px'; c.style.height = '12px'; } else { c.style.width = '8px'; c.style.height = '8px'; c.style.borderRadius = '50%'; }
-          c.style.animation = 'burst 420ms ease-out forwards, fall 1200ms 440ms ease-in forwards';
-          frag.appendChild(c);
-        }
-        vc.appendChild(frag);
-        vc.classList.add('appear');
-        if (v) { v.style.visibility = 'visible'; }
-        setTimeout(function(){
-          var nodes = vc.querySelectorAll('.confetti');
-          nodes.forEach(function(n){ if (n && n.parentNode) n.parentNode.removeChild(n); });
-          v.style.visibility = '';
-          vc.classList.add('appear');
-          setTimeout(function(){ vc.classList.remove('appear'); }, 400);
-        }, 1800);
-      })();
-    </script>
+
+    <!-- About Section -->
+    <section class="content-section" id="about">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="aboutTag">01 // ABOUT ME</span>
+        <h2 class="section-title" data-i18n="aboutTitle">
+          Engineering with humor, precision & high speed.
+        </h2>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-card">
+          <p class="about-text" data-i18n="aboutP1">
+            I am a Software Engineer based in Mexico City with experience at world-class companies like Meta (Co-Dev Lead Meta DevC), Globant, Grupo Salinas, Guros, and BlackLine.
+          </p>
+          <p class="about-text" data-i18n="aboutP2">
+            Passionate about Python, TypeScript, Go, WebGL 3D, and AI agent architectures. From building financial platforms to open-source developer CLI assistants, I love solving hard technical challenges.
+          </p>
+
+          <div class="social-links-grid">
+            <a href="https://github.com/holasoymalva" target="_blank" class="social-pill">
+              <i class="fa-brands fa-github"></i> GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/martin-manriquez/" target="_blank" class="social-pill">
+              <i class="fa-brands fa-linkedin"></i> LinkedIn
+            </a>
+            <a href="https://twitter.com/holasoymalva" target="_blank" class="social-pill">
+              <i class="fa-brands fa-twitter"></i> X / Twitter
+            </a>
+            <a href="https://www.instagram.com/holasoymalva/" target="_blank" class="social-pill">
+              <i class="fa-brands fa-instagram"></i> Instagram
+            </a>
+            <a href="https://dev.to/holasoymalva" target="_blank" class="social-pill">
+              <i class="fa-brands fa-dev"></i> Dev.to
+            </a>
+          </div>
+        </div>
+
+        <div class="about-card" style="text-align: center;">
+          <img
+            src="./source/img/martin-logo.png"
+            alt="Martin Manriquez Avatar"
+            style="width: 160px; height: 160px; border-radius: 50%; border: 3px solid var(--border-color); box-shadow: 6px 6px 0 var(--border-color); margin-bottom: 20px;"
+          />
+          <h3 style="font-family: var(--font-arcade); font-size: 1.3rem; margin-bottom: 8px;">Martin Manriquez</h3>
+          <p style="color: var(--accent-red); font-family: var(--font-pixel); font-size: 1.4rem;">@holasoymalva</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="content-section" id="experience">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="expTag">02 // CAREER JOURNEY</span>
+        <h2 class="section-title" data-i18n="expTitle">
+          Proven track record at top tech companies.
+        </h2>
+      </div>
+
+      <div class="timeline-container">
+        <!-- BlackLine -->
+        <div class="timeline-item current">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-header">
+              <div>
+                <div class="timeline-role">Software Engineer</div>
+                <div class="timeline-company">BlackLine</div>
+              </div>
+              <div class="timeline-date">2023 — PRESENT</div>
+            </div>
+            <p class="timeline-desc">
+              Designing, troubleshooting, and scaling cloud-based backend microservices. Driving engineering innovation into BlackLine's core enterprise suite.
+            </p>
+          </div>
+        </div>
+
+        <!-- Guros -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-header">
+              <div>
+                <div class="timeline-role">Tech Lead</div>
+                <div class="timeline-company">Guros</div>
+              </div>
+              <div class="timeline-date">2022 — 2023</div>
+            </div>
+            <p class="timeline-desc">
+              Architected digital insurance solutions, led core engineering practices, and accelerated production release frequency.
+            </p>
+          </div>
+        </div>
+
+        <!-- HeyGrows -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-header">
+              <div>
+                <div class="timeline-role">Product Manager & Co-Founder</div>
+                <div class="timeline-company">HeyGrows</div>
+              </div>
+              <div class="timeline-date">2021 — 2022</div>
+            </div>
+            <p class="timeline-desc">
+              Defined metrics, analyzed user telemetry, and led cross-functional product roadmap execution.
+            </p>
+          </div>
+        </div>
+
+        <!-- Globant -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-header">
+              <div>
+                <div class="timeline-role">Software Engineer</div>
+                <div class="timeline-company">Globant</div>
+              </div>
+              <div class="timeline-date">2020 — 2021</div>
+            </div>
+            <p class="timeline-desc">
+              Built Angular & Vue.js enterprise frontends and high-performance Node.js microservices for international clients.
+            </p>
+          </div>
+        </div>
+
+        <!-- Meta Developer Circles -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-header">
+              <div>
+                <div class="timeline-role">Co-Dev Lead</div>
+                <div class="timeline-company">Meta Developer Circles CDMX</div>
+              </div>
+              <div class="timeline-date">2019 — 2021</div>
+            </div>
+            <p class="timeline-desc">
+              Organized workshops, hackathons, and technical keynotes empowering thousands of software developers across Mexico City.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tech Stack Physics Playground -->
+    <section class="content-section" id="tech">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="techTag">03 // TECH STACK PHYSICS</span>
+        <h2 class="section-title" data-i18n="techTitle">
+          Drag & interact with my engineering toolkit.
+        </h2>
+      </div>
+
+      <div class="tech-physics-section">
+        <canvas id="tech-physics-canvas"></canvas>
+        <div class="physics-hint">
+          <i class="fa-solid fa-gamepad"></i> Drag or toss 8-bit tech badges!
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Gallery -->
+    <section class="content-section" id="projects">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="projectsTag">04 // FEATURED WORKS</span>
+        <h2 class="section-title" data-i18n="projectsTitle">
+          Award-caliber applications & AI tools.
+        </h2>
+      </div>
+
+      <div class="projects-grid">
+        <!-- Many LLMs -->
+        <div class="project-card-3d">
+          <div class="project-img-wrapper">
+            <img src="./source/img/project_manyllms.png" alt="Many LLMs" />
+          </div>
+          <div class="project-body">
+            <div class="project-title">
+              <span>Many LLMs</span>
+              <a href="https://www.manyllm.pro/" target="_blank" aria-label="Visit Many LLMs"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </div>
+            <p class="project-desc">
+              Run many local models. One simple workspace. Local-first privacy, unified chat, OpenAI-compatible API. Zero-cloud by default.
+            </p>
+            <div class="project-tags">
+              <span class="project-tag">AI / LLM</span>
+              <span class="project-tag">Local Privacy</span>
+              <span class="project-tag">TypeScript</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Deepseek-cli -->
+        <div class="project-card-3d">
+          <div class="project-img-wrapper">
+            <img src="./source/img/project_deepseek-cli.png" alt="Deepseek-cli" />
+          </div>
+          <div class="project-body">
+            <div class="project-title">
+              <span>Deepseek-cli</span>
+              <a href="https://github.com/holasoymalva/deepseek-cli" target="_blank" aria-label="Visit Deepseek-cli"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </div>
+            <p class="project-desc">
+              Command-line AI coding assistant leveraging DeepSeek Coder models to accelerate terminal development workflows.
+            </p>
+            <div class="project-tags">
+              <span class="project-tag">CLI Tool</span>
+              <span class="project-tag">Python</span>
+              <span class="project-tag">DeepSeek AI</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Spark AR Art Series -->
+        <div class="project-card-3d">
+          <div class="project-img-wrapper">
+            <img src="./source/img/project_artSeries.png" alt="Spark AR Art Series" />
+          </div>
+          <div class="project-body">
+            <div class="project-title">
+              <span>Spark AR - Art Series</span>
+              <a href="https://devpost.com/software/spart-ar" target="_blank" aria-label="Visit Spark AR Art Series"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </div>
+            <p class="project-desc">
+              Practical guide using public domain resources to create interactive Augmented Reality experiences for museums and artists.
+            </p>
+            <div class="project-tags">
+              <span class="project-tag">Augmented Reality</span>
+              <span class="project-tag">Spark AR</span>
+              <span class="project-tag">Creative Coding</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sayme -->
+        <div class="project-card-3d">
+          <div class="project-img-wrapper">
+            <img src="./source/img/project_sayme.png" alt="Sayme Assistant" />
+          </div>
+          <div class="project-body">
+            <div class="project-title">
+              <span>Sayme</span>
+              <a href="https://devpost.com/software/sayme" target="_blank" aria-label="Visit Sayme Assistant"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </div>
+            <p class="project-desc">
+              AI chatbot assistant for travelers featuring real-time translation and computer vision image processing.
+            </p>
+            <div class="project-tags">
+              <span class="project-tag">Chatbot AI</span>
+              <span class="project-tag">Computer Vision</span>
+              <span class="project-tag">Node.js</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Knowledge Base & Resources -->
+    <section class="content-section" id="resources">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="resourcesTag">05 // KNOWLEDGE BASE</span>
+        <h2 class="section-title" data-i18n="resourcesTitle">
+          Guides & Community Resources.
+        </h2>
+      </div>
+
+      <div class="resources-grid">
+        <a href="https://east-alyssum-6ed.notion.site/English-4-Developers-2-0-9100dc12931e483a8973de3fc4803689" target="_blank" class="resource-card">
+          <div class="resource-icon"><i class="fa-solid fa-earth-americas"></i></div>
+          <div>
+            <h3 style="font-family: var(--font-arcade); font-size: 1.1rem;">English 4 Developers 2.0</h3>
+            <p style="color: var(--text-muted); font-size: 0.85rem;">Notion guide for mastering technical English.</p>
+          </div>
+        </a>
+
+        <a href="https://east-alyssum-6ed.notion.site/Apuntes-de-Malva-3-0-5fc52df71d624ae6a5ad5a992d4e1ec0" target="_blank" class="resource-card">
+          <div class="resource-icon"><i class="fa-solid fa-laptop-code"></i></div>
+          <div>
+            <h3 style="font-family: var(--font-arcade); font-size: 1.1rem;">Web Dev Master Notes</h3>
+            <p style="color: var(--text-muted); font-size: 0.85rem;">Curated learning roadmap for modern web.</p>
+          </div>
+        </a>
+
+        <a href="https://docs.google.com/document/d/1KnHCRejooCvxNh0WFdRWKhPlvb6bEpjcindu0fBD-k0/edit?usp=sharing" target="_blank" class="resource-card">
+          <div class="resource-icon"><i class="fa-solid fa-file-lines"></i></div>
+          <div>
+            <h3 style="font-family: var(--font-arcade); font-size: 1.1rem;">High-Impact CV Template</h3>
+            <p style="color: var(--text-muted); font-size: 0.85rem;">Google Docs CV template for top tier tech applications.</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Footer & Contact -->
+    <footer class="site-footer" id="contact">
+      <div class="section-tag" data-i18n="contactTag">06 // GET IN TOUCH</div>
+      <h2 class="footer-cta-title" data-i18n="contactTitle">
+        LET'S BUILD SOMETHING CRAZY TOGETHER
+      </h2>
+      <p style="color: var(--text-muted); font-size: 1.15rem; max-width: 600px; margin: 0 auto 30px;" data-i18n="contactSub">
+        Have a project, startup idea, or technical challenge? Reach out and let's talk.
+      </p>
+
+      <a href="mailto:contact@holasoymalva.com" class="btn-primary" style="font-size: 1.4rem; padding: 16px 40px;">
+        <i class="fa-solid fa-envelope"></i> contact@holasoymalva.com
+      </a>
+
+      <div class="footer-bottom">
+        <span data-i18n="footerMsg">Crafted with 🌮, WebGL & Good Vibes in Mexico City.</span>
+        <span>© 2026 Martin Manriquez (@holasoymalva)</span>
+      </div>
+    </footer>
+
+    <!-- Arcade CRT Terminal Modal -->
+    <div class="terminal-modal" id="terminalModal">
+      <div class="terminal-box">
+        <div class="terminal-header-bar">
+          <div class="terminal-buttons">
+            <span class="terminal-btn close" id="terminalClose"></span>
+            <span class="terminal-btn minimize"></span>
+            <span class="terminal-btn maximize"></span>
+          </div>
+          <span class="terminal-title">~/arcade — CRT PHOSPHOR MONITOR v2.4</span>
+          <span></span>
+        </div>
+        <div class="terminal-body">
+          <div class="terminal-output" id="terminalOutput">
+[SYS_BOOT] 8-BIT RETRO CRT MONITOR ONLINE
+Welcome to Martin Manriquez (@holasoymalva) Terminal.
+Type 'help' to list available commands.
+          </div>
+          <div class="terminal-input-row">
+            <span class="terminal-prompt">~/arcade $</span>
+            <input type="text" id="terminalInput" class="terminal-input" placeholder="type a command..." autofocus />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="source/scripts/translate.js"></script>
+    <script src="source/scripts/mode.js"></script>
+    <script src="source/scripts/glitch-engine.js"></script>
+    <script src="source/scripts/webgl-hero.js"></script>
+    <script src="source/scripts/cursor-physics.js"></script>
+    <script src="source/scripts/tech-physics.js"></script>
+    <script src="source/scripts/audio-synth.js"></script>
+    <script src="source/scripts/terminal.js"></script>
   </body>
 </html>
