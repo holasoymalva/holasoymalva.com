@@ -55,36 +55,15 @@
       </a>
 
       <div class="header-controls">
-        <!-- Desktop Header Controls -->
-        <div class="desktop-controls">
-          <button id="soundToggle" class="btn-pill" aria-label="Toggle Sound Effects">
-            <i class="fa-solid fa-volume-xmark"></i>
-            <span>8-BIT OFF</span>
-          </button>
-          
-          <button id="languageButton" class="btn-pill" aria-label="Toggle Language">
-            🇺🇸 EN
-          </button>
-
-          <button id="modeButton" class="btn-pill" aria-label="Toggle Dark / Light Theme">
-            🌙 CRT NIGHT
-          </button>
-
-          <button class="btn-pill terminal-trigger" aria-label="Open Arcade Terminal">
-            <i class="fa-solid fa-gamepad"></i>
-            <span>~/arcade</span>
-          </button>
-        </div>
-
-        <!-- Mobile Pixel Art Hamburger Menu Button -->
-        <button id="mobileMenuBtn" class="btn-pill mobile-menu-toggle" aria-label="Toggle Mobile Pixel Menu">
+        <!-- Unified Pixel Art Menu Button (Desktop & Mobile) -->
+        <button id="mobileMenuBtn" class="btn-pill menu-toggle-btn" aria-label="Toggle Pixel Art Menu">
           <i class="fa-solid fa-bars"></i>
           <span>MENU</span>
         </button>
       </div>
     </header>
 
-    <!-- Mobile Pixel Art Menu Drawer Modal -->
+    <!-- Pixel Art Menu Drawer Modal (Houses all options) -->
     <div class="mobile-pixel-drawer" id="mobileMenuDrawer">
       <div class="mobile-drawer-box">
         <div class="drawer-header">
@@ -92,14 +71,14 @@
           <button class="drawer-close-btn" id="mobileMenuClose" aria-label="Close Menu">&times;</button>
         </div>
         <div class="drawer-body">
-          <button id="soundToggleMobile" class="btn-pill drawer-pill">
+          <button id="soundToggle" class="btn-pill drawer-pill">
             <i class="fa-solid fa-volume-xmark"></i>
             <span>8-BIT OFF</span>
           </button>
-          <button id="languageButtonMobile" class="btn-pill drawer-pill">
+          <button id="languageButton" class="btn-pill drawer-pill">
             🇺🇸 EN
           </button>
-          <button id="modeButtonMobile" class="btn-pill drawer-pill">
+          <button id="modeButton" class="btn-pill drawer-pill">
             🌙 CRT NIGHT
           </button>
           <button class="btn-pill drawer-pill terminal-trigger">
@@ -512,7 +491,7 @@
     <script src="source/scripts/terminal.js"></script>
     <script src="source/scripts/avatar-gaze.js"></script>
 
-    <!-- Mobile Pixel Drawer Handler Script -->
+    <!-- Unified Pixel Menu Drawer Handler Script -->
     <script>
       (function() {
         const menuBtn = document.getElementById("mobileMenuBtn");
@@ -529,25 +508,6 @@
           drawer.addEventListener("click", (e) => {
             if (e.target === drawer) drawer.classList.remove("active");
           });
-        }
-
-        // Sync mobile buttons with desktop triggers
-        const soundMobile = document.getElementById("soundToggleMobile");
-        const soundDesk = document.getElementById("soundToggle");
-        if (soundMobile && soundDesk) {
-          soundMobile.addEventListener("click", () => soundDesk.click());
-        }
-
-        const langMobile = document.getElementById("languageButtonMobile");
-        const langDesk = document.getElementById("languageButton");
-        if (langMobile && langDesk) {
-          langMobile.addEventListener("click", () => langDesk.click());
-        }
-
-        const modeMobile = document.getElementById("modeButtonMobile");
-        const modeDesk = document.getElementById("modeButton");
-        if (modeMobile && modeDesk) {
-          modeMobile.addEventListener("click", () => modeDesk.click());
         }
       })();
     </script>
