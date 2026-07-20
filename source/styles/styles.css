@@ -765,7 +765,7 @@ section.content-section {
   height: 220px;
   overflow: hidden;
   position: relative;
-  background: #000;
+  background: var(--bg-primary);
   border-bottom: 3px solid var(--border-color);
 }
 
