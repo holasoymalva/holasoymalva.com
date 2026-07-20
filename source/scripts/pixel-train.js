@@ -1,6 +1,6 @@
 /**
- * Multi-Train Freight & Locomotive Engine
- * Renders multiple mini-trains, each pulling 2-3 tool wagons with proper forward locomotive orientation
+ * 3-Track Bi-Directional Railway Yard Engine
+ * Renders 3 parallel tracks with bi-directional trains (L->R and R->L) and smooth slow speed
  */
 
 (function () {
@@ -8,64 +8,61 @@
   let width, height;
   let particles = [];
 
-  const trainGroups = [
+  // 3 Railway Tracks & Train Convoy Assignment
+  const trainConvoys = [
+    // Track 1 (Top, L -> R)
     {
-      id: 1,
-      speed: 2.2,
-      x: -300,
+      trackYRatio: 0.22,
+      dir: 1, // Moving Right
+      speed: 1.1,
+      x: -200,
       tools: [
         { name: "Python", color: "#e63946" },
         { name: "JavaScript", color: "#ffb703", textColor: "#000" },
         { name: "TypeScript", color: "#2a9d8f" },
       ],
     },
+    // Track 2 (Center, R -> L)
     {
-      id: 2,
-      speed: 2.2,
-      x: -900,
+      trackYRatio: 0.52,
+      dir: -1, // Moving Left
+      speed: 1.1,
+      x: 1200,
       tools: [
         { name: "React.js", color: "#7209b7" },
         { name: "Vue.js", color: "#38b000" },
         { name: "Golang", color: "#00add8" },
       ],
     },
+    // Track 3 (Bottom, L -> R)
     {
-      id: 3,
-      speed: 2.2,
-      x: -1500,
+      trackYRatio: 0.82,
+      dir: 1, // Moving Right
+      speed: 1.1,
+      x: -400,
       tools: [
         { name: "Erlang", color: "#a90533" },
         { name: "DeepSeek AI", color: "#38b000" },
         { name: "Three.js", color: "#e63946" },
-      ],
-    },
-    {
-      id: 4,
-      speed: 2.2,
-      x: -2100,
-      tools: [
-        { name: "Spark AR", color: "#ffb703", textColor: "#000" },
         { name: "Docker", color: "#2196f3" },
-        { name: "Xcode", color: "#7209b7" },
-        { name: "Figma", color: "#2a9d8f" },
       ],
     },
   ];
 
   class SteamParticle {
-    constructor(x, y) {
+    constructor(x, y, dir) {
       this.x = x;
       this.y = y;
-      this.vx = -Math.random() * 1.5 - 0.5;
-      this.vy = -Math.random() * 2 - 1;
-      this.size = Math.random() * 10 + 6;
+      this.vx = -dir * (Math.random() * 1.5 + 0.5);
+      this.vy = -Math.random() * 1.8 - 0.8;
+      this.size = Math.random() * 8 + 5;
       this.opacity = 0.8;
     }
 
     update() {
       this.x += this.vx;
       this.y += this.vy;
-      this.size += 0.3;
+      this.size += 0.25;
       this.opacity -= 0.02;
     }
 
@@ -89,7 +86,8 @@
     canvas.addEventListener("click", (e) => {
       const rect = canvas.getBoundingClientRect();
       const clickX = e.clientX - rect.left;
-      spawnSteamBurst(clickX);
+      const clickY = e.clientY - rect.top;
+      spawnSteamBurst(clickX, clickY);
       if (window.playTrainWhistle) window.playTrainWhistle();
     });
 
@@ -104,107 +102,124 @@
     canvas.height = height;
   }
 
-  function spawnSteamBurst(targetX) {
-    const trackY = height - 40;
-    for (let i = 0; i < 20; i++) {
-      particles.push(new SteamParticle(targetX, trackY - 70));
+  function spawnSteamBurst(targetX, targetY) {
+    for (let i = 0; i < 16; i++) {
+      particles.push(new SteamParticle(targetX, targetY - 20, 1));
     }
   }
 
-  function drawRailwayTrack() {
-    const trackY = height - 40;
-
+  function drawTrack(trackY) {
     // Metal Rails
     ctx.fillStyle = "#2b2b2b";
-    ctx.fillRect(0, trackY, width, 6);
-    ctx.fillRect(0, trackY + 16, width, 6);
+    ctx.fillRect(0, trackY, width, 5);
+    ctx.fillRect(0, trackY + 14, width, 5);
 
     // Wooden Ties
-    for (let x = 0; x < width; x += 30) {
+    for (let x = 0; x < width; x += 28) {
       ctx.fillStyle = "#5c4033";
-      ctx.fillRect(x, trackY - 4, 12, 28);
+      ctx.fillRect(x, trackY - 3, 10, 22);
       ctx.fillStyle = "#2b2b2b";
-      ctx.strokeRect(x, trackY - 4, 12, 28);
+      ctx.strokeRect(x, trackY - 3, 10, 22);
     }
   }
 
-  // Draw Forward-Facing Locomotive (Engine leads at front right, cabin in back)
-  function drawLocomotiveEngine(x, y) {
+  // Draw Locomotive Engine (dir = 1 for Right, dir = -1 for Left)
+  function drawLocomotiveEngine(x, y, dir) {
     ctx.save();
     ctx.translate(x, y);
 
-    // Driver Cabin (Back of engine, left)
-    ctx.fillStyle = "#e63946";
-    ctx.fillRect(0, -80, 48, 80);
-    ctx.lineWidth = 3;
-    ctx.strokeStyle = "#2b2b2b";
-    ctx.strokeRect(0, -80, 48, 80);
+    if (dir === 1) {
+      // Facing Right (Motion Left -> Right)
+      // Driver Cabin (Back, left)
+      ctx.fillStyle = "#e63946";
+      ctx.fillRect(0, -65, 42, 65);
+      ctx.lineWidth = 2.5;
+      ctx.strokeStyle = "#2b2b2b";
+      ctx.strokeRect(0, -65, 42, 65);
 
-    // Cabin Roof
-    ctx.fillStyle = "#2b2b2b";
-    ctx.fillRect(-4, -86, 56, 8);
+      ctx.fillStyle = "#2b2b2b"; ctx.fillRect(-4, -70, 50, 6); // Roof
+      ctx.fillStyle = "#ffb703"; ctx.fillRect(10, -52, 20, 20); ctx.strokeRect(10, -52, 20, 20); // Window
 
-    // Cabin Window
-    ctx.fillStyle = "#ffb703";
-    ctx.fillRect(12, -65, 24, 24);
-    ctx.strokeRect(12, -65, 24, 24);
+      // Boiler Cylinder (Front, right)
+      ctx.fillStyle = "#1c1917"; ctx.fillRect(42, -45, 52, 45); ctx.strokeRect(42, -45, 52, 45);
 
-    // Boiler Cylinder (Front of engine, right)
-    ctx.fillStyle = "#1c1917";
-    ctx.fillRect(48, -55, 60, 55);
-    ctx.strokeRect(48, -55, 60, 55);
+      // Chimney
+      ctx.fillStyle = "#2b2b2b"; ctx.fillRect(72, -64, 14, 19); ctx.fillRect(68, -69, 22, 6);
 
-    // Chimney / Funnel (On top of boiler near front)
-    ctx.fillStyle = "#2b2b2b";
-    ctx.fillRect(80, -78, 16, 23);
-    ctx.fillRect(75, -84, 26, 8);
+      // Cowcatcher (Front right tip)
+      ctx.fillStyle = "#ffb703";
+      ctx.beginPath(); ctx.moveTo(94, 0); ctx.lineTo(108, 0); ctx.lineTo(94, -24); ctx.closePath(); ctx.fill(); ctx.stroke();
 
-    // Front Cowcatcher Grille (Facing forward right)
-    ctx.fillStyle = "#ffb703";
-    ctx.beginPath();
-    ctx.moveTo(108, 0);
-    ctx.lineTo(124, 0);
-    ctx.lineTo(108, -28);
-    ctx.closePath();
-    ctx.fill();
-    ctx.stroke();
+      // Wheels
+      ctx.fillStyle = "#ffb703";
+      ctx.beginPath(); ctx.arc(16, 4, 11, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.arc(52, 4, 11, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.arc(82, 4, 11, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    } else {
+      // Facing Left (Motion Right -> Left)
+      // Driver Cabin (Back, right)
+      ctx.fillStyle = "#e63946";
+      ctx.fillRect(-42, -65, 42, 65);
+      ctx.lineWidth = 2.5;
+      ctx.strokeStyle = "#2b2b2b";
+      ctx.strokeRect(-42, -65, 42, 65);
 
-    // Wheels
-    ctx.fillStyle = "#ffb703";
-    ctx.beginPath(); ctx.arc(20, 5, 14, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
-    ctx.beginPath(); ctx.arc(60, 5, 14, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
-    ctx.beginPath(); ctx.arc(95, 5, 14, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = "#2b2b2b"; ctx.fillRect(-46, -70, 50, 6); // Roof
+      ctx.fillStyle = "#ffb703"; ctx.fillRect(-30, -52, 20, 20); ctx.strokeRect(-30, -52, 20, 20); // Window
+
+      // Boiler Cylinder (Front, left)
+      ctx.fillStyle = "#1c1917"; ctx.fillRect(-94, -45, 52, 45); ctx.strokeRect(-94, -45, 52, 45);
+
+      // Chimney
+      ctx.fillStyle = "#2b2b2b"; ctx.fillRect(-86, -64, 14, 19); ctx.fillRect(-90, -69, 22, 6);
+
+      // Cowcatcher (Front left tip)
+      ctx.fillStyle = "#ffb703";
+      ctx.beginPath(); ctx.moveTo(-94, 0); ctx.lineTo(-108, 0); ctx.lineTo(-94, -24); ctx.closePath(); ctx.fill(); ctx.stroke();
+
+      // Wheels
+      ctx.fillStyle = "#ffb703";
+      ctx.beginPath(); ctx.arc(-16, 4, 11, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.arc(-52, 4, 11, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.arc(-82, 4, 11, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    }
 
     ctx.restore();
   }
 
-  function drawWagon(x, y, tool) {
+  function drawWagon(x, y, tool, dir) {
     ctx.save();
     ctx.translate(x, y);
 
+    const wagonW = 100;
+    const wagonH = 40;
+
+    const drawX = dir === 1 ? 0 : -wagonW;
+
     // Wagon Body
     ctx.fillStyle = tool.color;
-    ctx.fillRect(0, -45, 110, 45);
+    ctx.fillRect(drawX, -wagonH, wagonW, wagonH);
 
-    ctx.lineWidth = 3;
+    ctx.lineWidth = 2.5;
     ctx.strokeStyle = "#2b2b2b";
-    ctx.strokeRect(0, -45, 110, 45);
+    ctx.strokeRect(drawX, -wagonH, wagonW, wagonH);
 
     // Tool Name Label
     ctx.fillStyle = tool.textColor || "#ffffff";
-    ctx.font = "bold 15px 'Pixelify Sans', sans-serif";
+    ctx.font = "bold 14px 'Pixelify Sans', sans-serif";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.fillText(tool.name, 55, -22);
+    ctx.fillText(tool.name, drawX + wagonW / 2, -wagonH / 2);
 
     // Wheels
     ctx.fillStyle = "#2b2b2b";
-    ctx.beginPath(); ctx.arc(25, 5, 11, 0, Math.PI * 2); ctx.fill();
-    ctx.beginPath(); ctx.arc(85, 5, 11, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(drawX + 20, 4, 9, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(drawX + wagonW - 20, 4, 9, 0, Math.PI * 2); ctx.fill();
 
     // Coupler Link
     ctx.fillStyle = "#2b2b2b";
-    ctx.fillRect(110, -18, 15, 6);
+    const couplerX = dir === 1 ? wagonW : -wagonW - 12;
+    ctx.fillRect(couplerX, -15, 12, 5);
 
     ctx.restore();
   }
@@ -212,41 +227,64 @@
   function loop() {
     ctx.clearRect(0, 0, width, height);
 
-    drawRailwayTrack();
+    // Render 3 Railway Tracks
+    const trackY1 = height * trainConvoys[0].trackYRatio;
+    const trackY2 = height * trainConvoys[1].trackYRatio;
+    const trackY3 = height * trainConvoys[2].trackYRatio;
 
-    const trackY = height - 40;
+    drawTrack(trackY1);
+    drawTrack(trackY2);
+    drawTrack(trackY3);
 
-    // Render steam particles
+    // Update and render steam particles
     particles.forEach((p, idx) => {
       p.update();
       p.draw(ctx);
       if (p.opacity <= 0) particles.splice(idx, 1);
     });
 
-    // Loop through each mini-train
-    trainGroups.forEach((train) => {
-      train.x += train.speed;
+    // Render each train on its dedicated track
+    trainConvoys.forEach((train, tIdx) => {
+      const trackY = height * train.trackYRatio;
 
-      const trainWidth = train.tools.length * 125 + 130;
+      train.x += train.dir * train.speed;
 
-      // Loop around canvas when off-screen
-      if (train.x > width + 200) {
-        train.x = -trainWidth - (Math.random() * 300 + 200);
+      const wagonSpacing = 112;
+      const trainLength = train.tools.length * wagonSpacing + 120;
+
+      // Wrap around bounds depending on direction
+      if (train.dir === 1 && train.x > width + 150) {
+        train.x = -trainLength - 100;
+      } else if (train.dir === -1 && train.x < -trainLength - 150) {
+        train.x = width + 150;
       }
 
-      // Draw wagons
-      train.tools.forEach((tool, idx) => {
-        const wagonX = train.x + idx * 125;
-        drawWagon(wagonX, trackY, tool);
-      });
+      if (train.dir === 1) {
+        // Moving Right: Wagons behind (left), Locomotive at front (right)
+        train.tools.forEach((tool, idx) => {
+          const wagonX = train.x + idx * wagonSpacing;
+          drawWagon(wagonX, trackY, tool, 1);
+        });
 
-      // Draw forward-facing locomotive engine at front
-      const locomotiveX = train.x + train.tools.length * 125;
-      drawLocomotiveEngine(locomotiveX, trackY);
+        const locomotiveX = train.x + train.tools.length * wagonSpacing;
+        drawLocomotiveEngine(locomotiveX, trackY, 1);
 
-      // Steam chimney emission
-      if (Math.random() < 0.25) {
-        particles.push(new SteamParticle(locomotiveX + 88, trackY - 84));
+        if (Math.random() < 0.2) {
+          particles.push(new SteamParticle(locomotiveX + 80, trackY - 69, 1));
+        }
+      } else {
+        // Moving Left: Wagons behind (right), Locomotive at front (left)
+        train.tools.forEach((tool, idx) => {
+          const wagonX = train.x - idx * wagonSpacing;
+          drawWagon(wagonX, trackY, tool, -1);
+        });
+
+        const locomotiveX = train.x - train.tools.length * wagonSpacing;
+        drawLocomotiveEngine(locomotiveX, trackY, -1);
+
+        if (Math.random() < 0.2) {
+          particles.push(new SteamParticle(locomotiveX - 80, trackY - 69, -1));
+        }
       }
     });
 
