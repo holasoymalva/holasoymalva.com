@@ -1,5 +1,5 @@
 /**
- * 3-Track Railway Engine with Organic Chugging Bobs & Curved Articulated Derailment Physics
+ * 3-Track Railway Engine with Subtle Metallic Micro-Chugging & Curved Articulated Derailment Physics
  */
 
 (function () {
@@ -303,7 +303,7 @@
   function loop() {
     ctx.clearRect(0, 0, width, height);
 
-    const animTime = Date.now() * 0.005;
+    const animTime = Date.now() * 0.002; // Very smooth slow time progression
 
     const trackY1 = height * trainConvoys[0].trackYRatio;
     const trackY2 = height * trainConvoys[1].trackYRatio;
@@ -353,7 +353,7 @@
         return;
       }
 
-      // Render wagons & locomotive with organic chugging bobs & curved articulated derailment
+      // Render wagons & locomotive with subtle metallic micro-chugging & curved accordion derailment
       if (train.dir === 1) {
         // Motion Left -> Right
         train.tools.forEach((tool, idx) => {
@@ -363,8 +363,9 @@
           let rotAngle = 0;
 
           if (train.state === "RUNNING") {
-            yOffset = Math.sin(animTime * 8 + idx * 0.9) * 2.2 * scale;
-            rotAngle = Math.sin(animTime * 12 + idx * 1.1) * 0.025;
+            // Very subtle micro-chug (0.4px bob, 0.005 tilt)
+            yOffset = Math.sin(animTime * 3 + idx * 0.8) * 0.4 * scale;
+            rotAngle = Math.sin(animTime * 4 + idx * 1.0) * 0.005;
           } else if (train.state === "DERAILING") {
             // Articulated Curved Accordion Bending
             rotAngle = Math.sin(idx * 1.2 + train.derailTimer * 0.25) * 0.45;
@@ -386,8 +387,8 @@
         let locoRot = 0;
 
         if (train.state === "RUNNING") {
-          locoY = Math.sin(animTime * 8 + train.tools.length * 0.9) * 2.2 * scale;
-          locoRot = Math.sin(animTime * 12 + train.tools.length * 1.1) * 0.025;
+          locoY = Math.sin(animTime * 3 + train.tools.length * 0.8) * 0.4 * scale;
+          locoRot = Math.sin(animTime * 4 + train.tools.length * 1.0) * 0.005;
         } else if (train.state === "DERAILING") {
           locoRot = Math.sin((train.tools.length + 1) * 1.2 + train.derailTimer * 0.25) * 0.45;
           locoY = -Math.pow(train.tools.length + 1, 1.2) * 5 * scale - train.derailTimer * 3.5;
@@ -411,8 +412,8 @@
           let rotAngle = 0;
 
           if (train.state === "RUNNING") {
-            yOffset = Math.sin(animTime * 8 + idx * 0.9) * 2.2 * scale;
-            rotAngle = -Math.sin(animTime * 12 + idx * 1.1) * 0.025;
+            yOffset = Math.sin(animTime * 3 + idx * 0.8) * 0.4 * scale;
+            rotAngle = -Math.sin(animTime * 4 + idx * 1.0) * 0.005;
           } else if (train.state === "DERAILING") {
             rotAngle = -Math.sin(idx * 1.2 + train.derailTimer * 0.25) * 0.45;
             yOffset = -Math.pow(idx + 1, 1.2) * 5 * scale - train.derailTimer * 3.5;
@@ -433,8 +434,8 @@
         let locoRot = 0;
 
         if (train.state === "RUNNING") {
-          locoY = Math.sin(animTime * 8 + train.tools.length * 0.9) * 2.2 * scale;
-          locoRot = -Math.sin(animTime * 12 + train.tools.length * 1.1) * 0.025;
+          locoY = Math.sin(animTime * 3 + train.tools.length * 0.8) * 0.4 * scale;
+          locoRot = -Math.sin(animTime * 4 + train.tools.length * 1.0) * 0.005;
         } else if (train.state === "DERAILING") {
           locoRot = -Math.sin((train.tools.length + 1) * 1.2 + train.derailTimer * 0.25) * 0.45;
           locoY = -Math.pow(train.tools.length + 1, 1.2) * 5 * scale - train.derailTimer * 3.5;
