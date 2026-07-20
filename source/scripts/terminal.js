@@ -1,69 +1,91 @@
 /**
  * Retro Arcade CRT Developer Terminal (~/arcade)
- * Green Phosphor monitor experience with interactive commands & Easter Egg
+ * Green Phosphor monitor experience with auto-printing Resume Summary, Stack & Links
  */
 
 (function () {
   let modal, input, output, closeBtn;
 
+  const resumeSummary = `
+===================================================================
+ [SYS_BOOT] MARTIN MANRIQUEZ (@holasoymalva) — RESUME SUMMARY
+===================================================================
+
+[PROFILE]
+  Name     : Martin Manriquez (@holasoymalva)
+  Role     : Software Engineer & Tech Architect
+  Location : Mexico City (CDMX)
+  Email    : contact@holasoymalva.com
+  LinkedIn : https://www.linkedin.com/in/martin-manriquez/
+  GitHub   : https://github.com/holasoymalva
+
+[CAREER & EXPERIENCE HISTORY]
+  • BlackLine       (2023 — Present) | Software Engineer
+    - Scaling & maintaining cloud-based backend microservices.
+  • Guros           (2022 — 2023)    | Tech Lead
+    - Led core engineering, digital insurance architecture & releases.
+  • HeyGrows        (2021 — 2022)    | Product Manager & Co-Founder
+    - Product strategy, telemetry analysis & technical execution.
+  • Globant         (2020 — 2021)    | Software Engineer
+    - Enterprise Angular, Vue.js frontends & Node.js backend microservices.
+  • Meta DevC CDMX  (2019 — 2021)    | Co-Dev Lead
+    - Community leader, workshops, hackathons & tech ecosystem growth.
+  • Coderhouse      (2020 — 2021)    | Tech Instructor
+    - Python & Java software development instructor.
+  • Grupo Salinas   (2018 — 2020)    | Software Engineer
+    - Python & JavaScript financial platforms & microservices.
+
+[ENGINEERING TOOLKIT]
+  • Languages : Python, JavaScript, TypeScript, Golang, Erlang, Java
+  • Stack     : React.js, Vue.js, Angular, Django, Flask, Node.js
+  • 3D/AI/CLI : Three.js, WebGL, DeepSeek AI, Spark AR, Docker, Xcode, Figma
+
+===================================================================
+Type 'help' for command list, or type 'matrix' for CRT rain!
+===================================================================
+`;
+
   const commands = {
     help: `
 [RETRO ARCADE COMMANDS]
-  - about      : Bio & career background
-  - skills     : Technical stack & tools
-  - projects   : Featured apps & AI tools
-  - exp        : Career history
-  - contact    : Socials & email
-  - matrix     : Trigger CRT matrix digital downfall
-  - theme      : Toggle light cream / CRT night theme
-  - sudo hire  : High priority recruiter intent 🎮
+  - resume     : Display full structured CV & summary
+  - stack      : Core technical languages & frameworks
+  - exp        : Complete career company history
+  - contact    : Email, LinkedIn & GitHub profiles
+  - matrix     : Trigger 8-bit CRT matrix downfall
+  - theme      : Toggle CRT night / light cream theme
+  - sudo hire  : Express recruiter intent 🎮
   - clear      : Clear CRT screen
 `,
-    about: `
-Martin Manriquez (@holasoymalva)
-Creative Software Engineer & Tech Architect.
-Ex-Meta DevC Co-Lead, Globant, Guros Tech Lead, BlackLine.
-Specialist in Python, TypeScript, Go, WebGL 3D, and AI Agent CLI tools.
-`,
-    skills: `
-[ENGINEERING TOOLKIT]
-  • Languages   : Python, JavaScript, TypeScript, Golang, Erlang, Java
-  • Frameworks  : React, Vue.js, Angular, Django, Flask, HTML5/CSS3
-  • 3D & Audio  : Three.js, WebGL, Spark AR, Web Audio API, Unity
-  • Infrastructure: Docker, Git, Linux, Xcode, Figma
-`,
-    projects: `
-[FEATURED PROJECTS]
-  1. Many LLMs (https://www.manyllm.pro/)
-     Run local LLMs. Local-first privacy, unified chat & OpenAI API.
-  2. Deepseek-cli (https://github.com/holasoymalva/deepseek-cli)
-     Terminal AI coding assistant powered by DeepSeek Coder.
-  3. Spark AR - Art Series (https://devpost.com/software/spart-ar)
-     Interactive guide for Instagram AR filter creators & museum experiences.
-  4. Sayme (https://devpost.com/software/sayme)
-     AI Chatbot assistant for travelers with computer vision & translation.
+    resume: resumeSummary,
+    stack: `
+[CORE TECH STACK]
+  • Python (Django, Flask, Data Services)
+  • JavaScript & TypeScript (React, Vue, Angular, Node.js)
+  • Golang & Erlang (Distributed Systems)
+  • WebGL 3D (Three.js, Canvas Shader, Spark AR)
+  • Tools (Docker, Git, Xcode, Figma, Linux)
 `,
     exp: `
-[CAREER TRAYECTORIA]
-  • BlackLine       - Software Engineer (Current)
-  • Guros           - Tech Lead
-  • HeyGrows        - Product Manager / Co-Founder
-  • Globant         - Software Engineer
-  • Meta DevC CDMX  - Co-Dev Lead
-  • Coderhouse      - Tech Instructor
-  • Grupo Salinas   - Software Engineer
+[CAREER HISTORY]
+  1. BlackLine (2023-Present) — Software Engineer
+  2. Guros (2022-2023) — Tech Lead
+  3. HeyGrows (2021-2022) — Co-Founder & PM
+  4. Globant (2020-2021) — Software Engineer
+  5. Meta DevC CDMX (2019-2021) — Co-Dev Lead
+  6. Coderhouse (2020-2021) — Instructor
+  7. Grupo Salinas (2018-2020) — Software Engineer
 `,
     contact: `
-[COMMUNICATION FREQUENCY]
-  • Email     : contact@holasoymalva.com
-  • GitHub    : https://github.com/holasoymalva
-  • LinkedIn  : https://www.linkedin.com/in/martin-manriquez/
-  • X/Twitter : https://twitter.com/holasoymalva
-  • Instagram : https://www.instagram.com/holasoymalva/
+[DIRECT CONTACT FREQUENCY]
+  • LinkedIn : https://www.linkedin.com/in/martin-manriquez/
+  • GitHub   : https://github.com/holasoymalva
+  • Email    : contact@holasoymalva.com
+  • X/Twitter: https://twitter.com/holasoymalva
 `,
     "sudo hire": `
-[INSERT COIN] High Priority Offer Registered! 🪙
-Notification sent directly to contact@holasoymalva.com!
+[INSERT COIN] High Priority Intent Received! 🪙
+Martin has been notified directly at contact@holasoymalva.com!
 `,
   };
 
@@ -99,7 +121,12 @@ Notification sent directly to contact@holasoymalva.com!
 
   function openTerminal() {
     modal.classList.add("active");
+    if (output) {
+      output.innerHTML = "";
+      appendLine(resumeSummary);
+    }
     input.focus();
+    if (window.playLevelUp) window.playLevelUp();
   }
 
   function closeTerminal() {
@@ -134,7 +161,7 @@ Notification sent directly to contact@holasoymalva.com!
     } else if (cmd.startsWith("sudo hire")) {
       appendLine(commands["sudo hire"]);
     } else {
-      appendLine(`Command not recognized: '${cmd}'. Type 'help' for arcade instructions.`, "error");
+      appendLine(`Command not recognized: '${cmd}'. Type 'help' for options.`, "error");
     }
 
     output.scrollTop = output.scrollHeight;

@@ -15,11 +15,11 @@
       content="SOFTWARE ENGINEER, CREATIVE DEVELOPER, WEBGL, THREE.JS, RETRO ARCADE, PIXEL ART, PYTHON, TYPESCRIPT, DEEPSEEK, BLACKLINE, GLOBANT, META"
     />
 
-    <!-- Google Fonts: VT323 (CRT), Silkscreen (Pixel), Space Mono (Vintage Typewriter) -->
+    <!-- Google Fonts: Pixelify Sans (High-Legibility Pixel), Space Mono (Vintage Typewriter) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=VT323&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=VT323&display=swap"
       rel="stylesheet"
     />
 
@@ -39,6 +39,9 @@
     <!-- Analogue Paper Noise & CRT Scanlines Overlay -->
     <div class="paper-texture"></div>
     <div class="crt-scanlines"></div>
+
+    <!-- Maximalist Falling Pixel Items Canvas -->
+    <canvas id="pixel-rain-canvas"></canvas>
 
     <!-- Custom Pixel Cursor -->
     <div class="custom-cursor-dot"></div>
@@ -166,8 +169,8 @@
             alt="Martin Manriquez Notion Pixel Avatar"
             style="width: 220px; height: 220px; border-radius: 20px; border: 3px solid var(--border-color); box-shadow: 6px 6px 0 var(--border-color); margin-bottom: 20px; image-rendering: pixelated; object-fit: contain; background: #ffffff;"
           />
-          <h3 style="font-family: var(--font-arcade); font-size: 1.3rem; margin-bottom: 8px;">Martin Manriquez</h3>
-          <p style="color: var(--accent-red); font-family: var(--font-pixel); font-size: 1.4rem;">@holasoymalva</p>
+          <h3 style="font-family: var(--font-pixel); font-size: 1.5rem; margin-bottom: 8px;">Martin Manriquez</h3>
+          <p style="color: var(--accent-red); font-family: var(--font-pixel); font-size: 1.3rem;">@holasoymalva</p>
         </div>
       </div>
     </section>
@@ -269,19 +272,19 @@
       </div>
     </section>
 
-    <!-- Tech Stack Physics Playground -->
+    <!-- 8-Bit Pixel Train Toolkit Railway -->
     <section class="content-section" id="tech">
       <div class="section-header">
-        <span class="section-tag" data-i18n="techTag">03 // TECH STACK PHYSICS</span>
+        <span class="section-tag" data-i18n="techTag">03 // ENGINEERING TOOLKIT TRAIN</span>
         <h2 class="section-title" data-i18n="techTitle">
-          Drag & interact with my engineering toolkit.
+          8-Bit Express carrying my tech stack tools.
         </h2>
       </div>
 
-      <div class="tech-physics-section">
-        <canvas id="tech-physics-canvas"></canvas>
-        <div class="physics-hint">
-          <i class="fa-solid fa-gamepad"></i> Drag or toss 8-bit tech badges!
+      <div class="pixel-train-section">
+        <canvas id="pixel-train-canvas"></canvas>
+        <div class="train-hint">
+          <i class="fa-solid fa-train"></i> Click the locomotive for steam & whistle!
         </div>
       </div>
     </section>
@@ -395,7 +398,7 @@
         <a href="https://east-alyssum-6ed.notion.site/English-4-Developers-2-0-9100dc12931e483a8973de3fc4803689" target="_blank" class="resource-card">
           <div class="resource-icon"><i class="fa-solid fa-earth-americas"></i></div>
           <div>
-            <h3 style="font-family: var(--font-arcade); font-size: 1.1rem;">English 4 Developers 2.0</h3>
+            <h3 style="font-family: var(--font-pixel); font-size: 1.3rem;">English 4 Developers 2.0</h3>
             <p style="color: var(--text-muted); font-size: 0.85rem;">Notion guide for mastering technical English.</p>
           </div>
         </a>
@@ -403,7 +406,7 @@
         <a href="https://east-alyssum-6ed.notion.site/Apuntes-de-Malva-3-0-5fc52df71d624ae6a5ad5a992d4e1ec0" target="_blank" class="resource-card">
           <div class="resource-icon"><i class="fa-solid fa-laptop-code"></i></div>
           <div>
-            <h3 style="font-family: var(--font-arcade); font-size: 1.1rem;">Web Dev Master Notes</h3>
+            <h3 style="font-family: var(--font-pixel); font-size: 1.3rem;">Web Dev Master Notes</h3>
             <p style="color: var(--text-muted); font-size: 0.85rem;">Curated learning roadmap for modern web.</p>
           </div>
         </a>
@@ -411,7 +414,7 @@
         <a href="https://docs.google.com/document/d/1KnHCRejooCvxNh0WFdRWKhPlvb6bEpjcindu0fBD-k0/edit?usp=sharing" target="_blank" class="resource-card">
           <div class="resource-icon"><i class="fa-solid fa-file-lines"></i></div>
           <div>
-            <h3 style="font-family: var(--font-arcade); font-size: 1.1rem;">High-Impact CV Template</h3>
+            <h3 style="font-family: var(--font-pixel); font-size: 1.3rem;">High-Impact CV Template</h3>
             <p style="color: var(--text-muted); font-size: 0.85rem;">Google Docs CV template for top tier tech applications.</p>
           </div>
         </a>
@@ -452,9 +455,6 @@
         </div>
         <div class="terminal-body">
           <div class="terminal-output" id="terminalOutput">
-[SYS_BOOT] 8-BIT RETRO CRT MONITOR ONLINE
-Welcome to Martin Manriquez (@holasoymalva) Terminal.
-Type 'help' to list available commands.
           </div>
           <div class="terminal-input-row">
             <span class="terminal-prompt">~/arcade $</span>
@@ -470,7 +470,8 @@ Type 'help' to list available commands.
     <script src="source/scripts/glitch-engine.js"></script>
     <script src="source/scripts/webgl-hero.js"></script>
     <script src="source/scripts/cursor-physics.js"></script>
-    <script src="source/scripts/tech-physics.js"></script>
+    <script src="source/scripts/pixel-rain.js"></script>
+    <script src="source/scripts/pixel-train.js"></script>
     <script src="source/scripts/audio-synth.js"></script>
     <script src="source/scripts/terminal.js"></script>
     <script src="source/scripts/avatar-gaze.js"></script>
