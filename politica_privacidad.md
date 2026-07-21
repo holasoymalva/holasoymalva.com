@@ -1,1 +1,0 @@
-Puedes utilizar nuestros servicios de diferentes formas para gestionar tu privacidad. Asimismo, puedes utilizar muchos servicios de HolaSoyMalva sin iniciar sesión en tu cuenta o sin haber creado una cuenta. Además, puedes estar seguro de que no nos metemos con tu privacidad ya que no la consumimos en ninguno de nuestros servicios.

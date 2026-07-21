@@ -1,24 +1,24 @@
 {
-  "name": "malvabombom.xyz",
-  "version": "1.0.0",
-  "description": "Personal WebSite",
-  "main": "index.js",
+  "name": "holasoymalva.com",
+  "version": "2.4.0",
+  "description": "Martin Manriquez (@holasoymalva) — Personal Portfolio & Interactive Arcade Experience",
+  "main": "index.html",
   "scripts": {
-     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-css" : "node-sass --include-path scss source/styles/styles.scss source/styles/styles.css",
-    "watch-css" : "nodemon -e scss -x \"npm run build-css\""
+    "start": "npx serve ."
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/malvabombom/malvabombom.xyz.git"
+    "url": "git+https://github.com/holasoymalva/holasoymalva.com.git"
   },
   "keywords": [
-    "Javascript"
+    "portfolio",
+    "javascript",
+    "pixel-art",
+    "8-bit",
+    "webgl",
+    "retro-arcade"
   ],
-  "author": "malvabombom",
+  "author": "Martin Manriquez (@holasoymalva)",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/malvabombom/malvabombom.xyz/issues"
-  },
-  "homepage": "https://github.com/malvabombom/malvabombom.xyz#readme"
+  "homepage": "https://holasoymalva.com"
 }
