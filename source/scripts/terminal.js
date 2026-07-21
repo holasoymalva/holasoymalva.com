@@ -53,7 +53,6 @@ Type 'help' for command list, or type 'matrix' for CRT rain!
   - exp        : Complete career company history
   - contact    : Email, LinkedIn & GitHub profiles
   - matrix     : Trigger 8-bit CRT matrix downfall
-  - theme      : Toggle CRT night / light cream theme
   - sudo hire  : Express recruiter intent 🎮
   - clear      : Clear CRT screen
 `,
@@ -146,13 +145,6 @@ Martin has been notified directly at contact@holasoymalva.com!
     if (cmd === "matrix") {
       appendLine("Initiating 8-bit CRT matrix sequence...", "highlight");
       triggerMatrixEffect();
-      return;
-    }
-
-    if (cmd === "theme") {
-      const modeBtn = document.getElementById("modeButton");
-      if (modeBtn) modeBtn.click();
-      appendLine("CRT Theme Toggled.", "highlight");
       return;
     }
 
