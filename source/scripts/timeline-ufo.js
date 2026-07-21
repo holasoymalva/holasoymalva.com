@@ -1,25 +1,32 @@
 /**
  * Career Journey Gamification: Accordion Reveal + Matrix Glitch Text Decoder + Peeking Aliens
- * Handles accordion expansion, character-by-character matrix decoder animation, and peeking 8-bit aliens.
+ * Handles accordion expansion, character-by-character matrix decoder animation on EVERY hover, and peeking 8-bit aliens.
  */
 
 (function () {
   const glitchGlyphs = "█░▓▒#@$%&*<>01!?:;+~=X79АБВГ";
 
   function scrambleText(element) {
-    if (!element || element.dataset.scrambling === "true") return;
+    if (!element) return;
 
-    const fullText = element.dataset.originalText || element.innerText.trim();
+    // Cache original pristine text on first run
+    if (!element.dataset.originalText) {
+      element.dataset.originalText = element.innerText.trim();
+    }
+
+    const fullText = element.dataset.originalText;
     if (!fullText) return;
 
-    element.dataset.originalText = fullText;
-    element.dataset.scrambling = "true";
+    // Clear any previous running scramble timer so it restarts fresh on every hover
+    if (element._scrambleTimer) {
+      clearInterval(element._scrambleTimer);
+    }
 
     const totalLength = fullText.length;
     let frame = 0;
     const totalFrames = 18; // ~360ms glitch decode
 
-    const interval = setInterval(() => {
+    element._scrambleTimer = setInterval(() => {
       frame++;
       const progress = frame / totalFrames;
       const resolvedCount = Math.floor(progress * totalLength);
@@ -40,9 +47,9 @@
       element.innerHTML = outputHTML;
 
       if (frame >= totalFrames) {
-        clearInterval(interval);
+        clearInterval(element._scrambleTimer);
+        element._scrambleTimer = null;
         element.innerText = fullText;
-        delete element.dataset.scrambling;
       }
     }, 22);
   }
@@ -56,12 +63,12 @@
       const desc = item.querySelector(".timeline-desc");
       if (!content) return;
 
-      // Save original description text for matrix decoder
+      // Save original description text immediately
       if (desc && !desc.dataset.originalText) {
         desc.dataset.originalText = desc.innerText.trim();
       }
 
-      // Hover trigger for desktop
+      // Hover trigger for desktop - FIRES EVERY SINGLE TIME MOUSE ENTERS
       item.addEventListener("mouseenter", () => {
         if (desc) scrambleText(desc);
       });
@@ -70,7 +77,6 @@
       content.addEventListener("click", () => {
         const isActive = item.classList.contains("active");
 
-        // Toggle active state
         items.forEach((other) => {
           if (other !== item) other.classList.remove("active");
         });
