@@ -1,67 +1,49 @@
-# holasoymalva - Personal Website
+# 👾 Martin Manriquez (@holasoymalva) — Personal Portfolio
 
-[**Live site here**][as] [![ny]][ny-link]
+> Retro 8-Bit Arcade & Notion Pixel Art Interactive Experience
 
-Portfolio personal de Martin Manriquez (@holasoymalva) - Software Engineer
+[![Live Site](https://img.shields.io/badge/Live-holasoymalva.com-ffb703?style=for-the-badge&logo=google-chrome&logoColor=white)](https://holasoymalva.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-e63946?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-## 🚀 Features
+Creative Senior Software Engineer & Tech Architect based in Mexico City. Building next-gen AI tools, interactive web experiences, and high-performance distributed systems.
 
-- Responsive and modern design
-- Dark/Light mode with persistence
-- Multi-language support (English/Spanish)
-- Optimized CSS animations
-- Performance optimized
+---
 
-## 🛠️ Built with
+## 🕹️ Interactive Features
 
-- ![html5]
-- ![css3]
-    - [SASS][sass]
-- ![js]
+- **3-Track Railway Stack Engine** 🚂: Click-to-derail interactive physics canvas carrying the engineering toolkit with chugging mechanics and chiptune explosions.
+- **8-Bit Arcade Pixel Snake** 🐍: Retro background simulation where pixel snakes chase apples, grow in size, and evade the mouse cursor.
+- **Notion Pixel Avatar Gaze** 👀: 8-directional pointer tracking Notion-style pixel avatar changing expressions based on cursor coordinates.
+- **CRT Phosphor shell terminal (`~/arcade`)** 📺: Vintage green-screen console with fully parsing resume commands (`help`, `resume`, `stack`, `exp`, `matrix`).
+- **Interactive Accordion Timeline** 📂: Sleek career history accordion cards showcasing real-time matrix glitch text decoding animations upon mouse hover/click.
+- **Pixel Matrix Scroll Reveal** 🧱: Scroll assembly reveal utilizing mosaic pixel construction observers.
 
-### Tools used
+---
 
-![vsc] ![git] ![ps] ![ai] ![fg]
+## 🛠️ Tech Stack & Toolkit
 
-## ⚡ Recent Optimizations
+- **Frontend**: Vanilla HTML5, Space Mono & Pixelify Sans typography, CSS3 custom variables & keyframes.
+- **Interactions**: HTML5 Canvas 2D Context, Web Audio API sound synthesis.
+- **Deployment**: Static hosting deployed directly on **GitHub Pages**.
 
-- ✅ Lazy loading for Font Awesome
-- ✅ Preconnect to external CDNs
-- ✅ LocalStorage for user preferences
-- ✅ Optimized CSS without duplicates
-- ✅ Smooth transitions in animations
-- ✅ Scripts with defer for better loading
-- ✅ GZIP compression enabled
-- ✅ Browser cache configured
+---
 
-## Author
+## ⚡ Recent Cleanups & Optimizations
 
-Created by Leon Martin ([HolaSoyMalva](https://github.com/holasoymalva)).
+- ✅ **Removed WebGL Bloat**: Removed heavy Three.js canvas overhead for a faster, lighter 8-bit page speed load.
+- ✅ **Optimized Assets**: Removed over 30MB of unused media files.
+- ✅ **Pure Vanilla CSS**: Cleaned Sass/SCSS build processes for clean browser-native styling.
+- ✅ **Modern Semantic SEO**: Standard SEO tags, meta summaries, and fast loading.
 
-[![in]][in-link] [![ig]][ig-link] [![tt]][tt-link]
+---
 
-Thank you for reading. <3
+## 🔗 Contact & Socials
 
+- **Website**: [holasoymalva.com](https://holasoymalva.com)
+- **LinkedIn**: [linkedin.com/in/martin-manriquez](https://www.linkedin.com/in/martin-manriquez/)
+- **GitHub**: [github.com/holasoymalva](https://github.com/holasoymalva)
+- **Email**: [contact@holasoymalva.com](mailto:contact@holasoymalva.com)
 
-[es]: https://img.shields.io/badge/README-Español-red
-[ny]: https://api.netlify.com/api/v1/badges/96b2ac8e-9256-4e8c-a504-b8a8c8f247d8/deploy-status
-[css3]: https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white
-[html5]: https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white
-[js]: https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E
-[vsc]: https://img.shields.io/badge/VSCode-0078D4?style=flat-square&logo=visual%20studio%20code&logoColor=white
-[git]: https://img.shields.io/badge/GIT-E44C30?style=flat-square&logo=git&logoColor=white
-[ps]: https://img.shields.io/badge/Adobe%20Photoshop-31A8FF?style=flat-square&logo=Adobe%20Photoshop&logoColor=white
-[ai]: https://img.shields.io/badge/Adobe%20Illustrator-FF9A00?style=flat-square&logo=adobe%20illustrator&logoColor=white
-[fg]: https://img.shields.io/badge/Figma-F24E1E?style=flat-square&logo=figma&logoColor=white
-[in]: https://img.shields.io/badge/LinkedIn-0077B5?style=flat-square&logo=linkedin&logoColor=white
-[ig]: https://img.shields.io/badge/Instagram-E4405F?style=flat-square&logo=instagram&logoColor=white
-[fb]: https://img.shields.io/badge/Facebook-1877F2?style=flat-square&logo=facebook&logoColor=white
-[tt]: https://img.shields.io/badge/tiktok-000000?style=flat-square&logo=tiktok&logoColor=white
+---
 
-[as]: https://holasoymalva.com/
-[ny-link]: https://gleaming-basbousa-b25172.netlify.app/ 
-[sass]: https://sass-lang.com
-[imgl]: https://imagesloaded.desandro.com
-[in-link]: https://www.linkedin.com/in/martin-manriquez-899877177/
-[ig-link]: https://www.instagram.com/malvabombom/
-[tt-link]: https://www.tiktok.com/@malvabombom
+*Crafted with 🌮, 8-Bit Synths & Good Vibes in Mexico City.*
