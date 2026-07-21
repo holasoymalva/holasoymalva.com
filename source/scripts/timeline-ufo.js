@@ -1,6 +1,6 @@
 /**
  * Career Journey Gamification: Accordion Reveal + Matrix Glitch Text Decoder + Peeking Aliens
- * Handles accordion expansion, character-by-character matrix decoder animation on EVERY hover, and peeking 8-bit aliens.
+ * Handles accordion expansion, smooth character-by-character matrix decoder animation on EVERY hover, and peeking 8-bit aliens.
  */
 
 (function () {
@@ -24,7 +24,7 @@
 
     const totalLength = fullText.length;
     let frame = 0;
-    const totalFrames = 18; // ~360ms glitch decode
+    const totalFrames = 42; // ~1.3s smooth cinematic matrix decode (much slower & enjoyable!)
 
     element._scrambleTimer = setInterval(() => {
       frame++;
@@ -38,7 +38,7 @@
           outputHTML += char;
         } else if (i < resolvedCount) {
           outputHTML += char;
-        } else if (i < resolvedCount + 8) {
+        } else if (i < resolvedCount + 10) {
           const randomChar = glitchGlyphs[Math.floor(Math.random() * glitchGlyphs.length)];
           outputHTML += `<span class="matrix-char">${randomChar}</span>`;
         }
@@ -51,7 +51,7 @@
         element._scrambleTimer = null;
         element.innerText = fullText;
       }
-    }, 22);
+    }, 30);
   }
 
   function initTimelineInteractions() {
