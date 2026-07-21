@@ -1,11 +1,11 @@
 /**
- * 3-Track Railway Engine with Smooth Micro-Chugging, Gentle Articulated Wave Deformation & Elegant Pixel Fireball Explosion
+ * 3-Track Railway Engine with Authentic 8-Bit Pixel Art Locomotives & Tool Wagons
+ * Features 8-bit pixel grid rendering, puffing pixel steam, derailment S-curve waves & fireball explosions.
  */
 
 (function () {
   let canvas, ctx;
   let width, height;
-  let particles = [];
   let explosionParticles = [];
   let scale = 1.0;
 
@@ -59,38 +59,13 @@
     },
   ];
 
-  class SteamParticle {
-    constructor(x, y, dir) {
-      this.x = x;
-      this.y = y;
-      this.vx = -dir * (Math.random() * 1.2 + 0.3);
-      this.vy = -Math.random() * 1.5 - 0.5;
-      this.size = Math.random() * 7 + 4;
-      this.opacity = 0.7;
-    }
-
-    update() {
-      this.x += this.vx;
-      this.y += this.vy;
-      this.size += 0.2;
-      this.opacity -= 0.02;
-    }
-
-    draw(ctx) {
-      ctx.save();
-      ctx.fillStyle = `rgba(244, 235, 217, ${this.opacity})`;
-      ctx.fillRect(this.x, this.y, this.size, this.size);
-      ctx.restore();
-    }
-  }
-
   class FireballDebris {
     constructor(x, y) {
       this.x = x;
       this.y = y;
-      this.vx = (Math.random() - 0.5) * 4.5; // Smooth controlled velocity
+      this.vx = (Math.random() - 0.5) * 4.5;
       this.vy = -Math.random() * 4 - 1;
-      this.size = Math.random() * 10 + 5;
+      this.size = Math.random() * 8 + 4;
       this.color = ["#e63946", "#ffb703", "#f3722c", "#1c1917", "#57534e"][
         Math.floor(Math.random() * 5)
       ];
@@ -102,7 +77,7 @@
     update() {
       this.x += this.vx;
       this.y += this.vy;
-      this.vy += 0.18; // Gentle gravity
+      this.vy += 0.18;
       this.rot += this.vRot;
       this.opacity -= 0.02;
     }
@@ -113,6 +88,7 @@
       ctx.rotate(this.rot);
       ctx.fillStyle = this.color;
       ctx.globalAlpha = Math.max(0, this.opacity);
+      // Pixel block debris
       ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
       ctx.restore();
     }
@@ -152,7 +128,6 @@
     train.state = "EXPLODING";
     if (window.playExplosionSound) window.playExplosionSound();
 
-    // 20 smooth pixel fireball particles instead of 50
     for (let i = 0; i < 22; i++) {
       explosionParticles.push(new FireballDebris(centerX, centerY));
     }
@@ -207,255 +182,296 @@
   }
 
   function drawTrack(trackY) {
-    ctx.fillStyle = "#2b2b2b";
-    ctx.fillRect(0, trackY, width, 4 * scale);
-    ctx.fillRect(0, trackY + 14 * scale, width, 4 * scale);
+    // 8-Bit Pixel Rails
+    ctx.fillStyle = "#1c1917";
+    ctx.fillRect(0, Math.floor(trackY), width, 4 * scale);
+    ctx.fillRect(0, Math.floor(trackY + 16 * scale), width, 4 * scale);
 
-    const tieSpacing = 28 * scale;
+    const tieSpacing = 24 * scale;
     for (let x = 0; x < width; x += tieSpacing) {
-      ctx.fillStyle = "#5c4033";
-      ctx.fillRect(x, trackY - 3 * scale, 10 * scale, 22 * scale);
+      // 8-Bit Wooden Crossties
+      ctx.fillStyle = "#57534e";
+      ctx.fillRect(Math.floor(x), Math.floor(trackY - 4 * scale), 10 * scale, 24 * scale);
       ctx.fillStyle = "#2b2b2b";
-      ctx.strokeRect(x, trackY - 3 * scale, 10 * scale, 22 * scale);
+      ctx.fillRect(Math.floor(x), Math.floor(trackY - 4 * scale), 10 * scale, 2 * scale);
+      ctx.fillRect(Math.floor(x), Math.floor(trackY + 18 * scale), 10 * scale, 2 * scale);
     }
   }
 
-  function drawLocomotiveEngine(x, y, dir) {
+  // Draw 8-Bit Pixel Art Steam Engine Locomotive
+  function drawPixelLocomotive(x, y, dir, time) {
     ctx.save();
     ctx.translate(x, y);
     ctx.scale(scale, scale);
 
-    if (dir === 1) {
-      // Facing Right
-      ctx.fillStyle = "#e63946"; ctx.fillRect(0, -65, 42, 65);
-      ctx.lineWidth = 2.5; ctx.strokeStyle = "#2b2b2b"; ctx.strokeRect(0, -65, 42, 65);
-
-      ctx.fillStyle = "#2b2b2b"; ctx.fillRect(-4, -70, 50, 6);
-      ctx.fillStyle = "#ffb703"; ctx.fillRect(10, -52, 20, 20); ctx.strokeRect(10, -52, 20, 20);
-
-      ctx.fillStyle = "#1c1917"; ctx.fillRect(42, -45, 52, 45); ctx.strokeRect(42, -45, 52, 45);
-
-      ctx.fillStyle = "#2b2b2b"; ctx.fillRect(72, -64, 14, 19); ctx.fillRect(68, -69, 22, 6);
-
-      ctx.fillStyle = "#ffb703";
-      ctx.beginPath(); ctx.moveTo(94, 0); ctx.lineTo(108, 0); ctx.lineTo(94, -24); ctx.closePath(); ctx.fill(); ctx.stroke();
-
-      ctx.fillStyle = "#ffb703";
-      ctx.beginPath(); ctx.arc(16, 4, 11, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
-      ctx.beginPath(); ctx.arc(52, 4, 11, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
-      ctx.beginPath(); ctx.arc(82, 4, 11, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
-    } else {
-      // Facing Left
-      ctx.fillStyle = "#e63946"; ctx.fillRect(-42, -65, 42, 65);
-      ctx.lineWidth = 2.5; ctx.strokeStyle = "#2b2b2b"; ctx.strokeRect(-42, -65, 42, 65);
-
-      ctx.fillStyle = "#2b2b2b"; ctx.fillRect(-46, -70, 50, 6);
-      ctx.fillStyle = "#ffb703"; ctx.fillRect(-30, -52, 20, 20); ctx.strokeRect(-30, -52, 20, 20);
-
-      ctx.fillStyle = "#1c1917"; ctx.fillRect(-94, -45, 52, 45); ctx.strokeRect(-94, -45, 52, 45);
-
-      ctx.fillStyle = "#2b2b2b"; ctx.fillRect(-86, -64, 14, 19); ctx.fillRect(-90, -69, 22, 6);
-
-      ctx.fillStyle = "#ffb703";
-      ctx.beginPath(); ctx.moveTo(-94, 0); ctx.lineTo(-108, 0); ctx.lineTo(-94, -24); ctx.closePath(); ctx.fill(); ctx.stroke();
-
-      ctx.fillStyle = "#ffb703";
-      ctx.beginPath(); ctx.arc(-16, 4, 11, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
-      ctx.beginPath(); ctx.arc(-52, 4, 11, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
-      ctx.beginPath(); ctx.arc(-82, 4, 11, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    // Flip horizontally if moving left
+    if (dir === -1) {
+      ctx.scale(-1, 1);
     }
+
+    // 8-Bit Color Palette
+    const C_RED = "#e63946";
+    const C_DARK_RED = "#9e1b24";
+    const C_BLACK = "#1c1917";
+    const C_CHARCOAL = "#2b2b2b";
+    const C_YELLOW = "#ffb703";
+    const C_WHITE = "#f4ebd9";
+
+    // 1. Headlight Pixel Light Beam
+    ctx.fillStyle = "rgba(255, 183, 3, 0.18)";
+    ctx.beginPath();
+    ctx.moveTo(96, -34);
+    ctx.lineTo(160, -54);
+    ctx.lineTo(160, -14);
+    ctx.closePath();
+    ctx.fill();
+
+    // 2. Main Boiler (8-Bit Stepped Cylindrical Hull)
+    ctx.fillStyle = C_BLACK;
+    ctx.fillRect(40, -48, 56, 44);
+
+    // Boiler Metallic Bands (8-Bit Yellow Highlights)
+    ctx.fillStyle = C_YELLOW;
+    ctx.fillRect(52, -48, 4, 44);
+    ctx.fillRect(72, -48, 4, 44);
+
+    // 3. Driver Cab (8-Bit Stepped Pixel Cabin)
+    ctx.fillStyle = C_RED;
+    ctx.fillRect(0, -68, 42, 64);
+
+    ctx.fillStyle = C_DARK_RED;
+    ctx.fillRect(0, -68, 42, 6); // Cab Roof Trim
+    ctx.fillRect(38, -68, 4, 64); // Shadow edge
+
+    // 8-Bit Cab Window & Little Pixel Driver 👨‍✈️
+    ctx.fillStyle = C_YELLOW;
+    ctx.fillRect(10, -56, 22, 20);
+    ctx.fillStyle = C_BLACK;
+    ctx.fillRect(10, -56, 22, 2); // Window Frame Top
+    ctx.fillRect(10, -38, 22, 2); // Window Frame Bottom
+    ctx.fillRect(20, -56, 2, 20); // Window Frame Center Split
+
+    ctx.fillStyle = C_BLACK;
+    ctx.fillRect(14, -50, 4, 4); // Driver Eye
+
+    // 4. Smokestack Chimney & 8-Bit Steam Puffs ☁️
+    ctx.fillStyle = C_CHARCOAL;
+    ctx.fillRect(76, -68, 14, 20);
+    ctx.fillStyle = C_YELLOW;
+    ctx.fillRect(72, -72, 22, 5); // Chimney Top Cap
+
+    // Animated 8-Bit Steam Clouds
+    const steamCycle = Math.floor(time * 12) % 4;
+    ctx.fillStyle = C_WHITE;
+    ctx.fillRect(70 - steamCycle * 6, -82 - steamCycle * 8, 12 + steamCycle * 4, 10 + steamCycle * 3);
+    ctx.fillRect(58 - steamCycle * 8, -96 - steamCycle * 10, 16 + steamCycle * 5, 12 + steamCycle * 4);
+
+    // 5. Front Headlight Block
+    ctx.fillStyle = C_CHARCOAL;
+    ctx.fillRect(92, -38, 8, 12);
+    ctx.fillStyle = C_YELLOW;
+    ctx.fillRect(96, -36, 4, 8);
+
+    // 6. Front Cowcatcher Wedge (8-Bit Grate)
+    ctx.fillStyle = C_YELLOW;
+    ctx.fillRect(96, -18, 12, 14);
+    ctx.fillStyle = C_BLACK;
+    ctx.fillRect(98, -16, 2, 12);
+    ctx.fillRect(102, -16, 2, 12);
+    ctx.fillRect(106, -16, 2, 12);
+
+    // 7. Base Chassis Frame
+    ctx.fillStyle = C_CHARCOAL;
+    ctx.fillRect(-6, -8, 110, 8);
+
+    // 8-Bit Wheelset (Square Pixel Wheels with Spokes)
+    function drawPixelWheel(wx, wy, radius) {
+      ctx.fillStyle = C_YELLOW;
+      ctx.fillRect(wx - radius, wy - radius, radius * 2, radius * 2);
+      ctx.fillStyle = C_BLACK;
+      ctx.fillRect(wx - radius + 2, wy - radius + 2, radius * 2 - 4, radius * 2 - 4);
+      // Center Hub Pin
+      ctx.fillStyle = C_RED;
+      ctx.fillRect(wx - 2, wy - 2, 4, 4);
+    }
+
+    drawPixelWheel(14, 2, 10);
+    drawPixelWheel(48, 2, 10);
+    drawPixelWheel(82, 2, 10);
+
+    // Connecting Side Rod (8-Bit Drive Shaft)
+    const rodOffset = Math.sin(time * 18) * 3;
+    ctx.fillStyle = C_YELLOW;
+    ctx.fillRect(14, Math.floor(2 + rodOffset), 68, 4);
 
     ctx.restore();
   }
 
-  function drawWagon(x, y, tool, dir) {
+  // Draw 8-Bit Pixel Art Tool Wagon
+  function drawPixelWagon(x, y, tool, dir) {
     ctx.save();
     ctx.translate(x, y);
     ctx.scale(scale, scale);
+
+    if (dir === -1) {
+      ctx.scale(-1, 1);
+    }
 
     const wagonW = 100;
-    const wagonH = 40;
-    const drawX = dir === 1 ? 0 : -wagonW;
+    const wagonH = 44;
 
+    // 1. Coupler Bar
+    ctx.fillStyle = "#1c1917";
+    ctx.fillRect(-14, -14, 16, 6);
+
+    // 2. Wagon Base & Body Frame
     ctx.fillStyle = tool.color;
-    ctx.fillRect(drawX, -wagonH, wagonW, wagonH);
+    ctx.fillRect(0, -wagonH, wagonW, wagonH);
 
-    ctx.lineWidth = 2.5;
-    ctx.strokeStyle = "#2b2b2b";
-    ctx.strokeRect(drawX, -wagonH, wagonW, wagonH);
+    // 8-Bit Dark Pixel Border & Rivets
+    ctx.fillStyle = "#1c1917";
+    ctx.fillRect(0, -wagonH, wagonW, 4); // Top Border
+    ctx.fillRect(0, -4, wagonW, 4); // Bottom Border
+    ctx.fillRect(0, -wagonH, 4, wagonH); // Left Border
+    ctx.fillRect(wagonW - 4, -wagonH, 4, wagonH); // Right Border
+
+    // 8-Bit Rivets (Corner Details)
+    ctx.fillStyle = "#ffb703";
+    ctx.fillRect(6, -wagonH + 6, 3, 3);
+    ctx.fillRect(wagonW - 9, -wagonH + 6, 3, 3);
+    ctx.fillRect(6, -9, 3, 3);
+    ctx.fillRect(wagonW - 9, -9, 3, 3);
+
+    // 3. Tool Label Text (8-Bit Pixel Typography)
+    ctx.save();
+    if (dir === -1) {
+      // Un-flip text if wagon is flipped
+      ctx.scale(-1, 1);
+      ctx.translate(-wagonW, 0);
+    }
 
     ctx.fillStyle = tool.textColor || "#ffffff";
-    ctx.font = "bold 14px 'Pixelify Sans', sans-serif";
+    ctx.font = "bold 15px 'Pixelify Sans', sans-serif";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.fillText(tool.name, drawX + wagonW / 2, -wagonH / 2);
+    ctx.fillText(tool.name, wagonW / 2, -wagonH / 2);
+    ctx.restore();
 
-    ctx.fillStyle = "#2b2b2b";
-    ctx.beginPath(); ctx.arc(drawX + 20, 4, 9, 0, Math.PI * 2); ctx.fill();
-    ctx.beginPath(); ctx.arc(drawX + wagonW - 20, 4, 9, 0, Math.PI * 2); ctx.fill();
+    // 4. 8-Bit Wheels
+    function drawWagonWheel(wx) {
+      ctx.fillStyle = "#ffb703";
+      ctx.fillRect(wx - 7, 0, 14, 14);
+      ctx.fillStyle = "#1c1917";
+      ctx.fillRect(wx - 5, 2, 10, 10);
+      ctx.fillStyle = "#e63946";
+      ctx.fillRect(wx - 2, 5, 4, 4);
+    }
 
-    ctx.fillStyle = "#2b2b2b";
-    const couplerX = dir === 1 ? wagonW : -wagonW - 12;
-    ctx.fillRect(couplerX, -15, 12, 5);
+    drawWagonWheel(22);
+    drawWagonWheel(wagonW - 22);
 
     ctx.restore();
   }
 
-  function loop() {
+  function loop(timestamp) {
     ctx.clearRect(0, 0, width, height);
 
-    const animTime = Date.now() * 0.002;
+    const timeSec = timestamp / 1000;
+    const wagonSpacing = 112 * scale;
 
-    const trackY1 = height * trainConvoys[0].trackYRatio;
-    const trackY2 = height * trainConvoys[1].trackYRatio;
-    const trackY3 = height * trainConvoys[2].trackYRatio;
-
-    drawTrack(trackY1);
-    drawTrack(trackY2);
-    drawTrack(trackY3);
-
-    // Render steam particles
-    particles.forEach((p, idx) => {
-      p.update();
-      p.draw(ctx);
-      if (p.opacity <= 0) particles.splice(idx, 1);
-    });
-
-    // Render fireball explosion debris
-    explosionParticles.forEach((ep, idx) => {
-      ep.update();
-      ep.draw(ctx);
-      if (ep.opacity <= 0) explosionParticles.splice(idx, 1);
-    });
-
-    // Render each train convoy
+    // 1. Draw 3 Railway Tracks
     trainConvoys.forEach((train) => {
       const trackY = height * train.trackYRatio;
-      const wagonSpacing = 112 * scale;
-      const trainLength = train.tools.length * wagonSpacing + 120 * scale;
+      drawTrack(trackY);
+    });
+
+    // 2. Update & Draw Train Convoys
+    trainConvoys.forEach((train) => {
+      const trackY = height * train.trackYRatio;
 
       if (train.state === "RUNNING") {
-        train.x += train.dir * train.speed;
+        train.x += train.speed * train.dir * scale;
 
+        const trainLength = train.tools.length * wagonSpacing + 120 * scale;
         if (train.dir === 1 && train.x > width + 150) {
           train.x = -trainLength - 100;
         } else if (train.dir === -1 && train.x < -trainLength - 150) {
           train.x = width + 150;
         }
-      } else if (train.state === "DERAILING") {
-        train.derailTimer++;
-
-        if (train.derailTimer > 20) {
-          const centerX = train.dir === 1 ? train.x + trainLength / 2 : train.x - trainLength / 2;
-          triggerExplosion(train, centerX, trackY - 15 * scale);
-          return;
-        }
-      } else if (train.state === "EXPLODING" || train.state === "RESPAWNING") {
-        return;
       }
 
-      // Render wagons & locomotive with subtle metallic micro-chugging & gentle wave deformation
-      if (train.dir === 1) {
-        // Motion Left -> Right
-        train.tools.forEach((tool, idx) => {
-          const wagonX = train.x + idx * wagonSpacing;
+      if (train.state === "DERAILING") {
+        train.derailTimer += 0.04;
+        if (train.derailTimer > 0.45) {
+          const locX = train.dir === 1 ? train.x + 80 * scale : train.x - 80 * scale;
+          triggerExplosion(train, locX, trackY - 20 * scale);
+        }
+      }
 
-          let yOffset = 0;
-          let rotAngle = 0;
+      if (train.state === "RUNNING" || train.state === "DERAILING") {
+        // Micro-Chugging Vertical Bounce (0.4px)
+        const microChugY = train.state === "RUNNING" ? Math.sin(timeSec * 22) * 0.4 * scale : 0;
+        const totalWagons = train.tools.length;
 
-          if (train.state === "RUNNING") {
-            yOffset = Math.sin(animTime * 3 + idx * 0.8) * 0.4 * scale;
-            rotAngle = Math.sin(animTime * 4 + idx * 1.0) * 0.005;
-          } else if (train.state === "DERAILING") {
-            // Gentle S-curve wave deformation
-            rotAngle = Math.sin(idx * 0.8 + train.derailTimer * 0.15) * 0.12;
-            yOffset = -train.derailTimer * 1.2 * scale - Math.sin(idx * 0.9) * 4 * scale;
+        // Draw Locomotive Engine
+        let locAngle = 0;
+        let locYOffset = microChugY;
 
-            if (Math.random() < 0.3) {
-              const sparkX = wagonX + (Math.random() - 0.5) * 15;
-              particles.push(new SteamParticle(sparkX, trackY + yOffset, 1));
-            }
-          }
-
-          ctx.save();
-          ctx.translate(0, yOffset);
-          ctx.rotate(rotAngle);
-          drawWagon(wagonX, trackY, tool, 1);
-          ctx.restore();
-        });
-
-        const locomotiveX = train.x + train.tools.length * wagonSpacing;
-        let locoY = 0;
-        let locoRot = 0;
-
-        if (train.state === "RUNNING") {
-          locoY = Math.sin(animTime * 3 + train.tools.length * 0.8) * 0.4 * scale;
-          locoRot = Math.sin(animTime * 4 + train.tools.length * 1.0) * 0.005;
-        } else if (train.state === "DERAILING") {
-          locoRot = Math.sin((train.tools.length + 1) * 0.8 + train.derailTimer * 0.15) * 0.12;
-          locoY = -train.derailTimer * 1.2 * scale - Math.sin((train.tools.length + 1) * 0.9) * 4 * scale;
+        if (train.state === "DERAILING") {
+          locAngle = Math.sin(train.derailTimer * 8) * 0.12 * train.dir;
+          locYOffset = -Math.abs(Math.sin(train.derailTimer * 8)) * 14 * scale;
         }
 
         ctx.save();
-        ctx.translate(0, locoY);
-        ctx.rotate(locoRot);
-        drawLocomotiveEngine(locomotiveX, trackY, 1);
+        const engineLocX = train.dir === 1 ? train.x + totalWagons * wagonSpacing : train.x - totalWagons * wagonSpacing;
+
+        ctx.translate(0, locYOffset);
+        if (locAngle !== 0) {
+          ctx.translate(engineLocX, trackY);
+          ctx.rotate(locAngle);
+          ctx.translate(-engineLocX, -trackY);
+        }
+
+        drawPixelLocomotive(engineLocX, trackY, train.dir, timeSec);
         ctx.restore();
 
-        if (train.state === "RUNNING" && Math.random() < 0.2) {
-          particles.push(new SteamParticle(locomotiveX + 80 * scale, trackY - 69 * scale, 1));
-        }
-      } else {
-        // Motion Right -> Left
-        train.tools.forEach((tool, idx) => {
-          const wagonX = train.x - idx * wagonSpacing;
+        // Draw Tool Wagons behind Locomotive
+        train.tools.forEach((tool, i) => {
+          let wagonAngle = 0;
+          let wagonYOffset = microChugY;
 
-          let yOffset = 0;
-          let rotAngle = 0;
-
-          if (train.state === "RUNNING") {
-            yOffset = Math.sin(animTime * 3 + idx * 0.8) * 0.4 * scale;
-            rotAngle = -Math.sin(animTime * 4 + idx * 1.0) * 0.005;
-          } else if (train.state === "DERAILING") {
-            rotAngle = -Math.sin(idx * 0.8 + train.derailTimer * 0.15) * 0.12;
-            yOffset = -train.derailTimer * 1.2 * scale - Math.sin(idx * 0.9) * 4 * scale;
-
-            if (Math.random() < 0.3) {
-              const sparkX = wagonX + (Math.random() - 0.5) * 15;
-              particles.push(new SteamParticle(sparkX, trackY + yOffset, -1));
-            }
+          if (train.state === "DERAILING") {
+            const phase = i * 0.4;
+            wagonAngle = Math.sin((train.derailTimer + phase) * 8) * 0.12 * train.dir;
+            wagonYOffset = -Math.abs(Math.sin((train.derailTimer + phase) * 8)) * 14 * scale;
           }
 
           ctx.save();
-          ctx.translate(0, yOffset);
-          ctx.rotate(rotAngle);
-          drawWagon(wagonX, trackY, tool, -1);
+          const wagonX = train.dir === 1 ? train.x + i * wagonSpacing : train.x - i * wagonSpacing;
+
+          ctx.translate(0, wagonYOffset);
+          if (wagonAngle !== 0) {
+            ctx.translate(wagonX, trackY);
+            ctx.rotate(wagonAngle);
+            ctx.translate(-wagonX, -trackY);
+          }
+
+          drawPixelWagon(wagonX, trackY, tool, train.dir);
           ctx.restore();
         });
-
-        const locomotiveX = train.x - train.tools.length * wagonSpacing;
-        let locoY = 0;
-        let locoRot = 0;
-
-        if (train.state === "RUNNING") {
-          locoY = Math.sin(animTime * 3 + train.tools.length * 0.8) * 0.4 * scale;
-          locoRot = -Math.sin(animTime * 4 + train.tools.length * 1.0) * 0.005;
-        } else if (train.state === "DERAILING") {
-          locoRot = -Math.sin((train.tools.length + 1) * 0.8 + train.derailTimer * 0.15) * 0.12;
-          locoY = -train.derailTimer * 1.2 * scale - Math.sin((train.tools.length + 1) * 0.9) * 4 * scale;
-        }
-
-        ctx.save();
-        ctx.translate(0, locoY);
-        ctx.rotate(locoRot);
-        drawLocomotiveEngine(locomotiveX, trackY, -1);
-        ctx.restore();
-
-        if (train.state === "RUNNING" && Math.random() < 0.2) {
-          particles.push(new SteamParticle(locomotiveX - 80 * scale, trackY - 69 * scale, -1));
-        }
       }
     });
+
+    // 3. Update & Draw Debris Explosion Particles
+    for (let i = explosionParticles.length - 1; i >= 0; i--) {
+      const p = explosionParticles[i];
+      p.update();
+      p.draw(ctx);
+
+      if (p.opacity <= 0) {
+        explosionParticles.splice(i, 1);
+      }
+    }
 
     requestAnimationFrame(loop);
   }

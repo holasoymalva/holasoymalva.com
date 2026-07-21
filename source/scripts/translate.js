@@ -20,8 +20,8 @@ const translations = {
     expTag: "02 // CAREER JOURNEY",
     expTitle: "Proven track record at top tech companies.",
 
-    techTag: "03 // ENGINEERING TOOLKIT TRAINS",
-    techTitle: "8-Bit Express locomotives carrying my tech stack tools.",
+    techTag: "03 // TECH STACK TOOLS",
+    techTitle: "My tech stack tools.",
 
     projectsTag: "04 // FEATURED WORKS",
     projectsTitle: "Award-caliber applications & AI tools.",
@@ -56,8 +56,8 @@ const translations = {
     expTag: "02 // TRAYECTORIA",
     expTitle: "Experiencia comprobada en líderes tecnológicos.",
 
-    techTag: "03 // TRENES DE TECH STACK",
-    techTitle: "Locomotoras 8-Bit Express transportando mis herramientas de ingeniería.",
+    techTag: "03 // HERRAMIENTAS DE TECH STACK",
+    techTitle: "Mis herramientas de tech stack.",
 
     projectsTag: "04 // PROYECTOS DESTACADOS",
     projectsTitle: "Aplicaciones de nivel internacional y herramientas de IA.",
